@@ -1,0 +1,229 @@
+@media only screen and (max-width: 1200px)
+    .header
+        &__center
+            &__inner
+                grid-template-columns: 3fr 4fr
+                .search
+                    width: 76%
+                .city
+                    font-size: 17px
+                .order-block
+                    a
+                        font-size: 15px
+    .types
+        grid-template-columns: 1fr 1fr
+    .product
+        &__rate, &__info
+            line-height: 28px
+            flex-direction: column
+            align-items: baseline
+
+@media only screen and (max-width: 1050px)
+    .banner
+        &__text
+            .desc
+                font-size: 16px
+        &__img
+            min-width: 400px
+
+@media only screen and (max-width: 1000px)
+    .header
+        display: none
+    .mobile-header
+        display: block
+        &__bottom
+            display: grid
+        .header__bottom
+            display: none
+    .banner
+        overflow: hidden
+        &__inner
+            position: relative
+            grid-template-areas: "text" "blocks"
+        &__img
+            position: absolute
+            right: -160px
+            top: 230px
+            transform: translate(0, -100px)
+            height: 390px
+            p
+                height: 100%
+                width: auto
+            img
+                height: 100%
+                width: auto
+        &__text
+            padding-right: 280px
+    // .product
+    //     .price
+    //         font-size: 18px
+    .shelf
+        &__wrapper
+            grid-template-columns: 1fr 1fr 1fr
+            .product:last-child
+                display: none
+
+@media only screen and (max-width: 800px)
+    .banner
+        &__img
+            position: static
+            transform: translate(0, 0)
+            display: none
+        &__text
+            padding-right: 0
+        &__info
+            display: grid
+            grid-template-columns: 1fr 1fr
+            .block
+                max-width: 250px
+                margin: 0 auto
+        // &__inner
+        //     grid-template-areas: "text" "img" "blocks"
+    .types
+        .block
+            padding: 30px 30px 103px
+            .line
+                margin: 15px 0 13px
+            &1
+                .block__img
+                    right: 75px
+                    bottom: -90px
+                    transform: rotate(270deg)
+            &2
+                .block__img
+                    right: auto
+                    left: -50px
+                    bottom: -70px
+                    transform: rotate(78deg)
+            &3
+                .block__img
+                    right: -30px
+                    bottom: -40px
+                    height: 200px
+                    img
+                        height: 100%
+            &4
+                .block__img
+                    right: 0
+                    bottom: -80px
+                    height: 200px
+                    img
+                        height: 100%
+            &5
+                .block__img
+                    right: -64px
+                    bottom: -66px
+                    transform: rotate(306deg)
+                    img
+                        transform: scale(0.8)
+            &6
+                .block__img
+                    right: -50px
+                    bottom: -105px
+                    transform: scale(0.7)
+
+@media only screen and (max-width: 700px)
+    .shelf
+        &__wrapper
+            grid-template-columns: 1fr 1fr
+            .product:last-child
+                display: flex
+
+@media only screen and (max-width: 600px)
+    .basket
+        width: 90%
+    .banner
+        &__info
+            // grid-template-columns: 1fr
+            .block
+                justify-content: inherit
+    .types
+        grid-template-columns: 1fr
+        margin: 0 auto 50px
+        .block
+            &3
+                .block__img
+                    height: 260px
+            &4
+                .block__img
+                    height: 270px
+            &6
+                .block__img
+                    right: -28px
+                    bottom: -51px
+                    transform: scale(1)
+
+@media only screen and (max-width: 550px)
+    .shelf
+        &__header
+            a
+                display: none
+        &__mobile-btn
+            display: flex
+    .shelf
+        padding-bottom: 50px
+
+@media only screen and (max-width: 500px)
+    .banner
+        &__img
+            display: flex
+            height: auto
+            width: 100%
+            min-width: 0
+            p
+                height: auto
+                width: 100%
+                img
+                    height: auto
+                    width: 100%
+        &__inner
+            grid-template-areas: "text" "img" "blocks"
+            grid-template-columns: 1fr
+        &__text
+            width: 100%
+            padding: 40px 0 0
+            .desc
+                margin-bottom: 0
+            button
+                display: none
+            .title
+                font-size: 34px
+            // &__inner
+            //     display: flex
+            //     justify-content: center
+            //     flex-direction: column
+    .modal
+        &__content
+            width: 99%
+            padding: 72px 53px 40px
+            .close
+                right: 17px
+                top: 22px
+
+@media only screen and (max-width: 450px)
+    .mobile-header
+        &__bottom
+            display: flex
+            flex-direction: column-reverse
+            height: 150px
+            grid-template-columns: 1fr
+            padding-bottom: 20px
+            justify-content: space-evenly
+
+            .buttons
+                padding: 0 10px
+    .basket-order
+        max-width: 150px
+    .basket__summ
+        font-size: 22px
+    .banner
+        &__info
+            grid-template-columns: 1fr
+            margin-bottom: 50px
+            .block
+                max-width: 300px
+    .product
+        padding: 20px 10px 170px
+        .tobasket
+            font-size: 16px
+            gap: 5px
