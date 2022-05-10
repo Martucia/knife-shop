@@ -6,14 +6,19 @@ import Basket from '../images/productBasket.svg'
 import p1 from '../images/p1.png'
 import { addProductToBasket } from "../actions/product";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AlertComponent from './AlertComponent';
+import { Rating } from '@mui/material';
+
 
 const Product = (props) => {
     const dispatch = useDispatch()
     const isAuth = useSelector(state => state.user.isAuth);
     const userId = useSelector(state => state.user.currentUser.id);
-    const [alert, setAlert] = useState(false)
+    const [alert, setAlert] = useState(false);
+    // const [ratesCount, setRatesCount] = useState(0)
+    const [middleRateValue, setMiddleRateValue] = useState(5)
+    const [reviewsLength, setReviewsLength] = useState('')
 
     const handleChange = (id) => {
         if (isAuth) {
@@ -23,6 +28,27 @@ const Product = (props) => {
         }
     };
 
+    useEffect(() => {
+        let out = 0;
+        props.data.reviews.forEach(review => {
+            // setRatesCount(count => count + 1)
+            out += review.rate;
+        })
+        out = out / props.data.reviews.length
+        setMiddleRateValue(out)
+
+        let revLength = Number(props.data.reviews.length);
+
+        if (revLength == 0) {
+            setReviewsLength(props.data.reviews.length + " отзывов")
+        } else if (revLength == 1) {
+            setReviewsLength(props.data.reviews.length + " отзыв")
+        } else if (revLength == 2 || revLength == 3 || revLength == 4) {
+            setReviewsLength(props.data.reviews.length + " отзыва")
+        } else {
+            setReviewsLength(props.data.reviews.length + " отзывов")
+        }
+    }, [])
 
     return (
         <div className="product">
@@ -47,15 +73,12 @@ const Product = (props) => {
             </div>
             <div className="product__rate">
                 <div className="stars">
-                    <img src={Star} alt="" />
-                    <img src={Star} alt="" />
-                    <img src={Star} alt="" />
-                    <img src={Star} alt="" />
-                    <img src={Star} alt="" />
+                    <Rating readOnly value={middleRateValue} />
+                    {/* {'(' + props.data.reviews.length + ')'} */}
                 </div>
                 <div className="reviews">
-                    <NavLink to="/reviews">
-                        12 отзывов
+                    <NavLink to={"/catalog/:" + props.data._id + "/reviews"}>
+                        {reviewsLength}
                     </NavLink>
                 </div>
             </div>

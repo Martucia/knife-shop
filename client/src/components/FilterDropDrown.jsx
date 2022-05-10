@@ -3,26 +3,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from 'react';
 import dropArrow from "../images/filter-drop-btn.svg"
 
-// {
-//     "name": "minmax",
-//     "filters": [
-//         "Общая длина, мм",
-//         "Длина клинка, мм",
-//         "Ширина клинка, мм"
-//     ]
-// },
-// {
-//     "name": "rate",
-//     "filters": [
-//         1,
-//         2,
-//         3,
-//         4,
-//         5
-//     ]
-// }
 
 const FilterDropDrown = (props) => {
+    const [isOpen, setOpen] = useState(true)
 
     function handleChange(e, val) {
         if (e.target.checked) {
@@ -81,23 +64,31 @@ const FilterDropDrown = (props) => {
         }
     };
 
+    const toggleDropDown = () => {
+        if (isOpen) {
+            setOpen(false)
+        } else {
+            setOpen(true)
+        }
+    }
+
     return (
         <div className="drop-down">
 
             <div className="drop-down__title">
                 {props.title}
-                <button>
+                <button className={isOpen ? "close" : ''} onClick={toggleDropDown}>
                     <img src={dropArrow} alt="" />
                 </button>
             </div>
-            <div className="drop-down__inner">
-                {props.data.map(b => {
+            <div className="drop-down__inner" style={isOpen ? { display: 'flex' } : { display: "none" }}>
+                {props.data.map(name => {
                     return (
                         <FormControlLabel
                             control={
-                                <Checkbox onChange={(e) => handleChange(e, b)} />
+                                <Checkbox onChange={(e) => handleChange(e, name)} />
                             }
-                            label={b}
+                            label={name}
                         />
                     )
                 })}

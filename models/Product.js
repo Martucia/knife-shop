@@ -14,6 +14,7 @@ const schema = new Schema({
     price: {type: Number, required: true},
     description: {type: String, required: true},
     onsale: {type: Boolean, default: false}, 
+    rate: {type: Number, default: 5},
     reviews: [{type: Types.ObjectId, ref: 'Review'}]
 })
 

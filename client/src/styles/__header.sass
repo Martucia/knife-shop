@@ -113,13 +113,13 @@
         width: 100%
         display: flex
         justify-content: center
-        ul
+        &__inner
             width: 90%
             max-width: 1600px
             display: flex
             align-items: center
             justify-content: space-between
-            li
+            a
                 color: #fff
                 height: 60px
                 cursor: pointer
@@ -128,10 +128,11 @@
                 display: flex
                 box-sizing: border-box
                 &:hover
-                    // padding: 24px 0 22px
                     color: #E8AA31
                     border-bottom: 4px solid #E8AA31
-                    // box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.3)
+                &.active
+                    color: #E8AA31
+                    border-bottom: 4px solid #E8AA31
 
 .basket-btn
     position: relative
@@ -258,3 +259,88 @@
         transform: rotate(-38deg)
         bottom: 16px
         transition: 0.4s
+
+.mobile-menu
+    position: absolute
+    top: 0
+    right: -400px
+    background: #141414
+    height: 100%
+    // width: 20vw
+    width: 400px
+    font-family: 'Montserrat', sans-serif
+    transition: 0.4s
+    padding: 45px 30px
+    color: #FFFFFF
+    &-anim
+        right: 0
+    &-bg
+        background: rgb(0 0 0 / 66%)
+        width: 100%
+        height: 100%
+        position: fixed
+        left: 0
+        top: 0
+        bottom: 0
+        right: 0
+        z-index: 40
+    &__header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        position: relative
+        margin-bottom: 40px
+        button.mobile-menu-closer
+            width: 40px
+            height: 40px
+            position: absolute
+            right: 0
+            top: 50%
+            transform: translate(0, -50%)
+            img
+                transform: rotate(90deg)
+                width: 100%
+                height: 100%
+        .back
+            font-weight: 500
+            font-size: 18px
+            line-height: 20px
+            align-items: center
+            gap: 10px
+            display: flex
+            color: #fff
+            img
+                height: 100%
+    &__inner
+        display: flex
+        flex-direction: column
+        gap: 30px
+        a, button
+            width: 100%
+            display: flex
+            align-items: center
+            justify-content: space-between
+            font-weight: 500
+            font-size: 18px
+            line-height: 20px
+            color: #FFFFFf
+        .all-catalog
+            border-bottom: 0.5px solid rgb(255 255 255 / 70%)
+            padding-bottom: 20px
+    &__footer
+        position: absolute
+        display: flex
+        justify-content: space-between
+        align-items: center
+        bottom: 30px
+        width: 100%
+        padding: 0 40px 0 30px
+        left: 0
+        button
+            color: #fff
+            font-size: 16px
+        a
+            display: flex
+            align-items: center
+            gap: 10px
+            font-size: 16px

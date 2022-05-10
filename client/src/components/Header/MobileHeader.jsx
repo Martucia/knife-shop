@@ -7,6 +7,7 @@ import Basket from '../../images/mob-basket.svg'
 import HeaderBottom from './HeaderBottom';
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import MobileMenu from './MobileMenu';
 
 
 const MobileHeader = (props) => {
@@ -20,15 +21,16 @@ const MobileHeader = (props) => {
             out += product.count
         })
         setBasketCount(out)
-    }, [basket])
+    }, [])
 
     return (
+        <>
         <div className="mobile-header">
             <div className="mobile-header__top">
                 < NavLink className="logo" to="/">
                     <img src={Logo} alt="" />
                 </NavLink>
-                <button className="menu-burger__header">
+                <button onClick={() => props.openMenu(true)} className="menu-burger__header">
                     <span></span>
                 </button>
             </div>
@@ -54,6 +56,8 @@ const MobileHeader = (props) => {
                 </div>
             </div>
         </div >
+        <MobileMenu openMenu={props.openMenu} isOpen={props.isMenuOpen} setOpen={props.setOpen} />
+        </>
     );
 }
 

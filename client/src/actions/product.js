@@ -4,10 +4,11 @@ import { setProducts, addReviewtoState } from "../reducers/productReducer";
 
 
 
-export const setCatalog = () => {
+export const setCatalog = (page) => {
     return async dispatch => {
         try {
-            const response = await axios.get("http://localhost:5000/api/catalog/");
+            const response = await axios.get(`http://localhost:5000/api/catalog`);
+            //:page=${page}
 
             dispatch(setProducts(response.data.products))
 
@@ -47,25 +48,6 @@ export const deleteProductFromBasket = (id, userId) => {
     }
 }
 
-// export const filterProduct = (params) => {
-//     return async dispatch => {
-//         try {
-//             let out = '';
-//             if (params.manufacture) {
-//                 params.manufacture.forEach((word) => {
-//                     out = out + word
-//                 })
-//             }
-//             console.log(out)
-
-//             const response = await axios.get(`http://localhost:5000/api/catalog/filter?${}`);
-
-
-//         } catch (e) {
-//             console.log(e)
-//         }
-//     }
-// }
 
 export const addReview = (text, productId, userName, rate) => {
     return async dispatch => {

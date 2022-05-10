@@ -9,7 +9,7 @@ import AlertComponent from "./AlertComponent";
 
 const Basket = (props) => {
     const products = useSelector(state => state.user.basket);
-    const basket = useRef();
+
     const dispatch = useDispatch()
     const userId = useSelector(state => state.user.currentUser.id);
     const [basketSumm, setBasketSumm] = useState(0);
@@ -28,19 +28,17 @@ const Basket = (props) => {
     useEffect(() => {
         if (props.isOpen) {
             setBasketStyle('basketAnim')
+            document.body.classList.add("noscroll");
         }
-        // if (!isAuth && props.isOpen) {
-        //     setCloseBasket();
-        //     console.log(34)
-        // }
     }, [props.isOpen])
-
 
 
     function setCloseBasket(time) {
         setTimeout(function () {
             props.closeBasket(false);
         }, time);
+        document.body.classList.remove("noscroll");
+
     }
 
     useEffect(() => {
@@ -52,21 +50,21 @@ const Basket = (props) => {
         setBasketSumm(out)
     }, [basketState])
 
+
     if (isAuth) {
         return (
             <div className="basket-bg" style={props.isOpen ? { display: 'flex' } : { display: "none" }}>
-                <div ref={basket} className={'basket ' + basketStyle} >
+                <div className={'basket ' + basketStyle} >
                     <div className="title">
                         Корзина
                         <button onClick={() => {
-                            setBasketStyle('');
                             setCloseBasket(340)
+                            setBasketStyle('');
                         }}>
                             <img src={closer} alt="" />
                         </button>
                     </div>
                     <div className="basket__inner">
-
                         {products.map(product => {
                             return (
                                 <div className="block">
@@ -80,8 +78,8 @@ const Basket = (props) => {
                                         <div className="block__text">
                                             <div className="block__title">
                                                 < NavLink to={'/catalog/:' + product._id} onClick={() => {
-                                                    setBasketStyle('');
                                                     setCloseBasket(340);
+                                                    setBasketStyle('');
                                                 }}>
                                                     {product.name}
                                                 </NavLink>
@@ -98,7 +96,6 @@ const Basket = (props) => {
                                 </div>
                             )
                         })}
-
 
                     </div>
                     <div className="basket__footer">

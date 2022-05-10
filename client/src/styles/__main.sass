@@ -1,3 +1,19 @@
+::-webkit-scrollbar
+    width: 5px
+
+::-webkit-scrollbar-track
+    background: transparent
+    padding: 0 2px
+
+::-webkit-scrollbar-thumb
+    background: rgba(109, 109, 109, 0.5)
+    border-radius: 8px
+    border-radius: 3px solid rgba(109, 109, 109, 0.5)
+
+body.noscroll
+    overflow: hidden
+    padding-right: 5px
+
 .banner
     width: 100%
     display: flex
@@ -232,6 +248,8 @@
         .stars
             display: flex
             gap: 2px
+            align-items: center
+            color: #faaf00
         .reviews
             a
                 font-weight: 500
@@ -285,9 +303,9 @@
     display: flex
     align-items: center
     gap: 15px
-    width: 90%
+    width: 100%
     max-width: 1600px
-    margin: 30px auto
+    margin: 60px auto 30px
     a
         font-family: 'Montserrat'
         font-weight: 500
@@ -302,21 +320,24 @@
 .catalog
     width: 90%
     font-family: 'Montserrat'
-    margin: 25px auto
+    margin: 0 auto 25px
     &__header
         display: flex
         align-items: center
         justify-content: space-between
-        margin-bottom: 30px
+        // margin-bottom: 30px
     &__inner
         display: grid
         grid-template-columns: 375px 1fr
         gap: 30px
-    &__wrapper
-        display: grid
-        grid-template-columns: 1fr 1fr 1fr
-        gap: 30px
+        align-items: flex-start
+    &__products
         width: 100%
+        &__wrapper
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr
+            gap: 30px
+            width: 100%
     &__filter
         .title
             font-weight: 700
@@ -349,11 +370,26 @@
                 button
                     display: flex
                     align-items: center
+                    animation-duration: 1s
+                    &.close
+                        // transform: rotate(180deg)
+                        -o-animation: rotate 0.1s
+                        animation-timing-function: ease
+                        animation-delay: 0
+                        animation-name: rotate
+                        animation-iteration-count: 1
+                        animation-fill-mode: forwards
             &__inner
                 padding: 20px 30px
                 display: flex
                 flex-direction: column
                 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+
+@keyframes rotate
+    0%
+        Transform: rotate(0deg)
+    100%
+        Transform: rotate(180deg)
 
 .product-info
     width: 90%
@@ -363,16 +399,29 @@
     gap: 60px
     margin: 30px auto 0
     font-family: 'Montserrat'
+    align-items: flex-start
     .swiper
+        min-width: 500px
+        display: flex
+        flex-direction: column
+        gap: 15px
         .main-photo
+            width: 100%
+            max-height: 500px
             overflow: hidden
             img
                 width: 100%
+                max-height: 100%
         .photo-row
-            display: flex
+            display: grid
             gap: 15px
+            width: 100%
+            // grid-template-columns: auto
+            // grid-template-columns: minmax(100px, max-content)
+            grid-template-columns: 1fr 1fr 1fr 1fr
             img
                 width: 100%
+                height: auto
                 cursor: pointer
 
     .information
@@ -381,6 +430,7 @@
         padding: 30px
         color: #141414
         font-weight: 500
+        width: 100%
         &__header
             display: flex
             justify-content: space-between
@@ -545,7 +595,6 @@
     position: absolute
     // top: 137px
     top: 0
-    // right: 0
     right: -500px
     background: #fff
     height: 100%
@@ -565,6 +614,8 @@
         top: 0
         bottom: 0
         right: 0
+        // pointer-events: none
+
     .title
         font-size: 30px
         color: #000
@@ -741,6 +792,8 @@
                     gap: 50px
                     p
                         text-align: right
+                        &:first-child
+                            text-align: left
     &__reviews
         &-row
             justify-content: space-between

@@ -4,7 +4,7 @@ import Right from "../images/right-grey.svg"
 
 const Way = (props) => {
     return (
-        <div className="way">
+        <div className="way" style={{width: props.width + "%"}}>
             <NavLink to="/">Главная</NavLink>
             <img src={Right} alt="" />
             <NavLink to={"/"+props.wayUrl}>{props.way}</NavLink>

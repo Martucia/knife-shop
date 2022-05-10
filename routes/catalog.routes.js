@@ -31,22 +31,27 @@ router.post(
 
 router.get(
   '/',
-  // authMiddleware,
-  async (req, res) => {
-    // const match = {}
-    // console.log(req.query.onSale)
 
-    // if (req.query.onSale) {
-    //   match.onSale = req.query.onSale === "true"
-    // }
+  async (req, res) => {
 
     try {
+      const perPage = 1;
+      const page = parseInt(req.query.page) || 1;
+
+
+      // const products = await Product.find().populate('reviews').skip(perPage * (page - 1)).limit(perPage)
 
       const products = await Product.find()
-      // const products = await Product.find().populate({
-      //   path: 'onsale',
-      //   match
-      // }).exec()
+
+      // const products = await Product.find(query, fields, {skip: perPage * (page - 1), limit: perPage}, function(err, results) {
+      //   console.log(results)
+      // })
+
+      // .skip(perPage * (page - 1)).limit(perPage)
+
+      console.log(products)
+
+      
 
       return res.json({ products })
 
@@ -62,7 +67,7 @@ router.get(
   async (req, res) => {
     try {
 
-      const products = await Product.find({ onsale: true })
+      const products = await Product.find({ onsale: true }).populate('reviews')
 
       return res.json({ products })
 

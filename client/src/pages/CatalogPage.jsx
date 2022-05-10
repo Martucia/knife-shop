@@ -7,12 +7,15 @@ import Product from '../components/Product';
 import { useDispatch, useSelector } from "react-redux";
 import FilterDropDrown from '../components/FilterDropDrown';
 import filtersList from '../filters.json'
-import { filterProduct } from "../actions/product";
+import { setCatalog } from "../actions/product";
+import { Pagination } from '@mui/material';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 
 
-const CatalogPage = () => {
-    const [sortBy, setSortBy] = useState("bypop");
-    const products = useSelector(state => state.catalog.catalog);
+const CatalogPage = (props) => {
+    const dispatch = useDispatch()
+
+    // const [sortBy, setSortBy] = useState("bypop");
     const [filters, setFilters] = useState({
         manufacture: [],
         steel: [],
@@ -20,35 +23,34 @@ const CatalogPage = () => {
         guardback: []
     })
 
-    const dispatch = useDispatch()
 
-    const handleChange = (event) => {
-        setSortBy(event.target.value);
-        // console.log(sortBy)
-    };
+    const products = useSelector(state => state.catalog.catalog);
+    const [page, setPage] = useState(
+        parseInt(window.location.search.split("=")[1] || 1)
+    )
+
 
     useEffect(() => {
-        if (sortBy === "bypop") {
-            products.sort((a, b) => a.name > b.name ? 1 : -1)
-        }
-        if (sortBy === "byprice") {
-            products.sort((a, b) => a.price > b.price ? 1 : -1)
-            // console.log(products)
-        }
-    }, [sortBy]);
+        dispatch(setCatalog(page))
+    }, [])
 
     // useEffect(() => {
-    //     dispatch(filterProduct(filters))
-    // }, [filters]);
+    //     if (sortBy === "bypop") {
+    //         products.sort((a, b) => a.name > b.name ? 1 : -1)
+    //     }
+    //     if (sortBy === "byprice") {
+    //         products.sort((a, b) => a.price > b.price ? 1 : -1)
+    //         // console.log(products)
+    //     }
+    // }, [sortBy]);
 
 
     //if (products) 
     return (
         <div className="catalog">
-            <button onClick={() => console.log(filters)}>click</button>
             <div className="catalog__header">
                 <Way way="Разделочные ножи" wayUlr="carving-knives" />
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
                     <Select
                         value={sortBy}
                         onChange={handleChange}
@@ -58,7 +60,8 @@ const CatalogPage = () => {
                         <MenuItem value={"byprice"}>По цене</MenuItem>
                         <MenuItem value={"byreviews"}>По отзывам</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl> */}
+
             </div>
 
             <div className="catalog__inner">
@@ -66,14 +69,17 @@ const CatalogPage = () => {
                     <div className="title">
                         Фильтр товаров
                     </div>
-                    {filtersList.map(filter => {
+                    {/* {filtersList.map(filter => {
                         return <FilterDropDrown all={filters} set={setFilters} title={filter.name} data={filter.filters} />
-                    })}
+                    })} */}
                 </div>
-                <div className="catalog__wrapper">
-                    {products.map(product => {
-                        return <Product data={product} />
-                    })}
+                <div className="catalog__products">
+                    <div className="catalog__products__wrapper">
+                        {products.map(product => {
+                            return <Product data={product} />
+                        })}
+                    </div>
+                    <Pagination />
                 </div>
             </div>
         </div>

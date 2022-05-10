@@ -4,15 +4,24 @@ import { NavLink } from 'react-router-dom';
 const HeaderBottom = () => {
     return (
         <div className="header__bottom">
-            <ul>
-                <li><NavLink to="/catalog">
+            <div className='header__bottom__inner'>
+                <NavLink to="/catalog?page=1">
                     Каталог ножей
-                </NavLink></li>
-                <li>Клинковое оружие</li>
-                <li>Сувенирные изделия</li>
-                <li>Фонари ARMYTEK</li>
-                <li>Сопуствующие товары</li>
-            </ul>
+                </NavLink>
+                <NavLink to="/d">
+                    Клинковое оружие
+                </NavLink>
+                <NavLink to="/dd">
+                    Сувенирные изделия
+                </NavLink>
+                <NavLink to="/df">
+                    Фонари ARMYTEK
+                </NavLink>
+                <NavLink to="/ddf">
+                    Сопуствующие товары
+                </NavLink>
+
+            </div>
         </div>
     );
 }

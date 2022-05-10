@@ -24,10 +24,8 @@ const ProductSwiper = (props) => {
 
     let { id } = useParams();
 
-
-
     return (
-        <div className="product-swiper">
+        <div className="product-swiper" ref={props.refName}>
             <div className="product-swiper__header">
                 < NavLink to={"/catalog/" + id + "/info"} activeclassname='open'>
                     Описание

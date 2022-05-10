@@ -1,3 +1,10 @@
+@media only screen and (max-width: 1300px)
+    .product-info
+        width: 95%
+        gap: 30px
+    .product-swiper
+        width: 95%
+        margin: 60px auto 120px
 @media only screen and (max-width: 1200px)
     .header
         &__center
@@ -17,6 +24,11 @@
             line-height: 28px
             flex-direction: column
             align-items: baseline
+    .product-info
+        .information
+            .interaction
+                .count
+                    display: none
 
 @media only screen and (max-width: 1050px)
     .banner
@@ -25,8 +37,18 @@
                 font-size: 16px
         &__img
             min-width: 400px
+    .product-info
+        .swiper
+            min-width: 500px
+        .information
+            .interaction
+                .btns
+                    .tobasket
+                        padding: 0 15px
 
 @media only screen and (max-width: 1000px)
+    body.noscroll
+        padding-right: 0
     .header
         display: none
     .mobile-header
@@ -62,7 +84,47 @@
             grid-template-columns: 1fr 1fr 1fr
             .product:last-child
                 display: none
+    .product-info
+        grid-template-columns: 1fr
 
+        .swiper
+            min-width: auto
+            display: grid
+            height: 100%
+            // max-height: 500px
+            height: 500px
+            grid-template-columns: 5fr 1fr
+            gap: 15px
+            .main-photo
+                // height: 500px
+                height: 100%
+                img
+                    height: 100%
+                    object-fit: cover
+            .photo-row
+                grid-template-columns: 1fr
+                height: 100%
+                height: 100%
+                gap: 16px
+                // grid-template-rows: min-content
+                grid-template-rows: 113px 113px 113px 113px
+                .photo
+                    height: 100%
+                img
+                    // height: 100%
+                    object-fit: cover
+                    max-height: 100%
+    .product-swiper__characteristic
+        grid-template-columns: 1fr
+        .characteristic-column
+            padding: 0
+            border-right: none
+            border-bottom: 1px solid rgba(20, 20, 20, 0.15)
+            padding: 40px 0
+            &:last-child
+                border-bottom: none
+            &:first-child
+                padding: 0 0 40px
 @media only screen and (max-width: 800px)
     .banner
         &__img
@@ -121,6 +183,19 @@
                     right: -50px
                     bottom: -105px
                     transform: scale(0.7)
+    .footer
+        &__row
+            grid-template-columns: 1fr 1fr
+            row-gap: 70px
+            &:last-child
+                flex-direction: column
+
+@media only screen and (max-width: 750px)
+    .product-swiper
+        &__header
+            gap: 35px
+            a
+                font-size: 18px
 
 @media only screen and (max-width: 700px)
     .shelf
@@ -128,6 +203,34 @@
             grid-template-columns: 1fr 1fr
             .product:last-child
                 display: flex
+    .product-info
+        .swiper
+            grid-template-columns: 1fr
+            height: auto
+            .photo-row
+                grid-template-rows: auto
+                grid-template-columns: 1fr 1fr 1fr 1fr
+    .product-swiper__reviews
+        &-row
+            position: relative
+            padding-bottom: 115px
+        .input__block
+            flex-direction: column
+            button
+                position: absolute
+                bottom: 35px
+                left: 0
+
+@media only screen and (max-width: 650px)
+    .product-swiper
+        &__header
+            display: grid
+            grid-template-columns: 1fr 1fr
+            a
+                font-size: 18px
+                display: flex
+                align-items: center
+                justify-content: center
 
 @media only screen and (max-width: 600px)
     .basket
@@ -155,13 +258,23 @@
 
 @media only screen and (max-width: 550px)
     .shelf
+        padding-bottom: 50px
         &__header
             a
                 display: none
         &__mobile-btn
             display: flex
-    .shelf
-        padding-bottom: 50px
+
+    .footer
+        &__row
+            grid-template-columns: 1fr
+            row-gap: 70px
+
+    .review__inner
+        &__header
+            flex-direction: column
+            gap: 5px
+            align-items: start
 
 @media only screen and (max-width: 500px)
     .banner
@@ -199,6 +312,16 @@
             .close
                 right: 17px
                 top: 22px
+    .product-swiper__reviews
+        .input__block
+            button
+                width: 100%
+        .review 
+            gap: 0
+            &__img
+                img
+                    width: 45px
+                    height: 45px
 
 @media only screen and (max-width: 450px)
     .mobile-header
@@ -227,3 +350,43 @@
         .tobasket
             font-size: 16px
             gap: 5px
+    .mobile-menu
+        width: 90%
+    .shelf
+        &__wrapper
+            grid-template-columns: 1fr
+    .product
+        &__info, &__rate
+            flex-direction: row
+    .product-info
+        .information
+            padding: 20px
+            &__header
+                flex-direction: column
+                gap: 15px
+                &__left
+                    width: 100%
+                    justify-content: space-between
+                &__buttons
+                    width: 100%
+                    justify-content: start
+        .interaction
+            .btns
+                flex-direction: column
+                width: 100%
+                button
+                    width: 100%
+                    justify-content: center
+        .characteristic
+            width: 100%
+            display: grid
+            grid-template-columns: 1fr 1fr
+            gap: 10px
+            ul
+                width: 100%
+                display: flex
+                flex-direction: column
+                gap: 15px
+                li
+                    font-size: 16px
+                    margin-bottom: 0

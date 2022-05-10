@@ -1,5 +1,5 @@
 import Way from "../components/Way";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Heart from '../images/productHeart.svg'
@@ -9,12 +9,9 @@ import Basket from '../images/productBasket.svg'
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToBasket } from "../actions/product";
 import { useParams } from "react-router-dom";
-import i1 from "../images/i1.png"
-import i2 from "../images/i2.png"
-import i3 from "../images/i3.png"
-import i4 from "../images/i4.png"
-import i5 from "../images/i5.png"
 import ProductSwiper from "../components/ProductSwiper";
+import PhotoSlider from "../components/PhotoSlider";
+import { Rating } from '@mui/material';
 
 
 
@@ -23,6 +20,7 @@ const ProductPage = () => {
     const [product, setProduct] = useState(null);
 
     let { id } = useParams();
+
     const userId = useSelector(state => state.user.currentUser.id);
 
     const handleChange = () => {
@@ -33,41 +31,29 @@ const ProductPage = () => {
         }
     };
 
+    let productSwiper = useRef();
+
+
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/catalog/${id}`).then((response) => {
             setProduct(response.data.product);
         });
+        // if(toSwiper) window.scrollTo(0, productSwiper.current.offsetTop)
     }, [id]);
-    
+
     if (product) return (
         <>
-            <Way way={product.name} />
+            <Way way={product.name} width={90} />
             <div className="product-info">
-                <div className="swiper">
-                    <div className="main-photo">
-                        <img src={i1} alt="" />
-                    </div>
-                    <div className="photo-row">
-                        <img src={i2} alt="" />
-                        <img src={i3} alt="" />
-                        <img src={i4} alt="" />
-                        <img src={i5} alt="" />
-                    </div>
-                </div>
+                <PhotoSlider />
                 <div className="information">
                     <div className="information__header">
                         <div className="information__header__left">
                             <div className="title">
                                 {product.name}
                             </div>
-                            <div className="stars">
-                                <img src={Star} alt="" />
-                                <img src={Star} alt="" />
-                                <img src={Star} alt="" />
-                                <img src={Star} alt="" />
-                                <img src={Star} alt="" />
-                            </div>
+                            <Rating value={product.rate} readOnly />
                         </div>
                         <div className="information__header__buttons">
                             <NavLink to="/compare">
@@ -93,6 +79,7 @@ const ProductPage = () => {
                             {/* <li>{product.vendor}</li> */}
                             <li>{product.trademark}</li>
                             <li>{product.serie}</li>
+                            <li>{product.manufacture}</li>
                             <li>+544</li>
                         </ul>
                     </div>
@@ -123,7 +110,7 @@ const ProductPage = () => {
                     </div>
                 </div>
             </div>
-            <ProductSwiper product={product} setProduct={setProduct} desc={product.description} productId={product._id} reviews={product.reviews} />
+            <ProductSwiper refName={productSwiper} product={product} setProduct={setProduct} desc={product.description} productId={product._id} reviews={product.reviews} />
         </>
     );
 }
