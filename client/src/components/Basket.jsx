@@ -42,18 +42,18 @@ const Basket = (props) => {
     }
 
     useEffect(() => {
-        let out = 0;
+        let price = 0;
 
         basketState.forEach(product => {
-            out += product.price
+            price += (product.price * product.count)
         })
-        setBasketSumm(out)
+        setBasketSumm(price)
     }, [basketState])
 
 
     if (isAuth) {
         return (
-            <div className="basket-bg" style={props.isOpen ? { display: 'flex' } : { display: "none" }}>
+            <div className="basket-bg">
                 <div className={'basket ' + basketStyle} >
                     <div className="title">
                         Корзина
@@ -85,7 +85,7 @@ const Basket = (props) => {
                                                 </NavLink>
                                             </div>
                                             <div className="block__price">
-                                                {product.price} грн
+                                                {product.price.toLocaleString("currency")} грн
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@ const Basket = (props) => {
             </div>
         )
     } else if (!isAuth && props.isOpen) {
-        setCloseBasket(3000);
+        setCloseBasket(3000); 
 
         return (
             <AlertComponent />

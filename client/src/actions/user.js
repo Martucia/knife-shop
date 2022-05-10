@@ -11,7 +11,7 @@ export const registration = (name, email, password) => {
                 password
             })
             dispatch(login(email, password))
-            
+
             alert(response.data.message)
 
         } catch (e) {
@@ -31,8 +31,9 @@ export const login = (email, password) => {
                 password
             })
 
-            // console.log(response)
-            dispatch(setUser(response.data.user, response.data.basket))
+            console.log(response)
+
+            dispatch(setUser(response.data.user, response.data.basket, response.data.isAdmin))
             localStorage.setItem('token', response.data.token)
 
         } catch (e) {
@@ -45,11 +46,9 @@ export const login = (email, password) => {
 export const auth = () => {
     return async dispatch => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/auth/`,
-                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-            )
+            const response = await axios.get(`http://localhost:5000/api/auth/`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
 
-            dispatch(setUser(response.data.user, response.data.basket))
+            dispatch(setUser(response.data.user, response.data.basket, response.data.isAdmin))
             localStorage.setItem('token', response.data.token)
         } catch (e) {
             // alert(e.response.message)

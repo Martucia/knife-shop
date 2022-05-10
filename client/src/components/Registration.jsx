@@ -3,6 +3,7 @@ import axios from 'axios';
 import Input from './Input';
 import { registration } from "../actions/user";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 
 function Registration(props) {
@@ -16,12 +17,14 @@ function Registration(props) {
 
     let yes = false;
 
-    if (props.isActive && !isAuth) {
-        yes = true;
-        document.body.classList.add("noscroll");
-    } else {
-        props.openReg(false)
-    }
+    useEffect(() => {
+        if (props.isActive && !isAuth) {
+            yes = true;
+            document.body.classList.add("noscroll");
+        } else {
+            props.openReg(false)
+        }
+    }, [props.isActive, isAuth])
 
     return (
         <div className='modal' style={yes ? { display: 'flex' } : { display: "none" }} onClick={() => props.openReg(false)}>

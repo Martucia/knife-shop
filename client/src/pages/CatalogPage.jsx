@@ -46,6 +46,7 @@ const CatalogPage = (props) => {
 
 
     //if (products) 
+    
     return (
         <div className="catalog">
             <div className="catalog__header">

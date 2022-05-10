@@ -3,6 +3,7 @@ import axios from 'axios';
 import Input from './Input';
 import { login } from "../actions/user";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
 
 
 
@@ -16,12 +17,15 @@ function Authorization(props) {
 
     let yes = false;
 
-    if (props.isActive && !isAuth) {
-        yes = true;
-        document.body.classList.add("noscroll");
-    } else {
-        props.openLog(false)
-    }
+    useEffect(() => {
+        if (props.isActive && !isAuth) {
+            yes = true;
+            document.body.classList.add("noscroll");
+        } else {
+            props.openLog(false)
+        }
+    }, [props.isActive, isAuth])
+
 
     return (
 

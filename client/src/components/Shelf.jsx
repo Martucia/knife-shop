@@ -6,17 +6,17 @@ import axios from 'axios';
 
 
 
-const Shelf = (props) => {
+const Shelf = () => {
     const [products, setProducts] = useState(null);
 
 
-    if (props.onsale) {
-        useEffect(() => {
-            axios.get(`http://localhost:5000/api/catalog/onsale`).then((response) => {
-                setProducts(response.data.products.slice(3));
-            });
-        }, []);
-    }
+    // if (props.onsale) {
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/catalog/onsale`).then((response) => {
+            setProducts(response.data.products.slice(3));
+        });
+    }, []);
+    // }
 
 
     if (products) return (
