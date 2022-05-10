@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Input from './Input';
 import { login } from "../actions/user";
 import { useDispatch, useSelector } from "react-redux";

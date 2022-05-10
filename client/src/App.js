@@ -1,14 +1,14 @@
 import MainPage from "./pages/MainPage";
-import { Route, Routes, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Header from "./components/Header/Header";
 import CatalogPage from "./pages/CatalogPage";
 import { useEffect, useState } from "react";
 import ProductPage from "./pages/ProductPage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Registration from "./components/Registration";
 import Authorization from "./components/Authorization";
 import { auth } from "./actions/user";
-import { setCatalog } from "./actions/product";
+// import { setCatalog } from "./actions/product";
 import Basket from "./components/Basket";
 import Footer from "./components/Footer";
 import MobileHeader from "./components/Header/MobileHeader";
@@ -25,8 +25,8 @@ function App() {
 
   useEffect(() => {
     dispatch(auth());
-    // dispatch(setCatalog())
-  }, [])
+    // dispatch(setCatalog()) 
+  }, [dispatch])
 
 
   return (

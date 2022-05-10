@@ -1,6 +1,6 @@
 const SET_PRODUCTS = "SET_PRODUCTS"
 const ADD_REVIEW = "ADD_REVIEW"
-const DEL_ITEM = "DEL_ITEM"
+// const DEL_ITEM = "DEL_ITEM"
 
 const defaultState = {
     catalog: []

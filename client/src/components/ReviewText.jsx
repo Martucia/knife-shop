@@ -1,24 +1,25 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const ReviewText = (props) => {
     const [text, setText] = useState('')
     const [isOpen, setOpen] = useState(false)
     const [isNecessary, setNecessary] = useState(false)
 
+    const sliceText = useCallback(() => {
+        let out = props.text.slice(0, 250);
+        out += "...";
+        return out;
+        // setText(out)
+    }, [props.text])
+
     useEffect(() => {
         if (props.text.length > 250) {
-            sliceText()
+            setText(sliceText)
             setNecessary(true)
         } else {
             setText(props.text)
         }
-    }, [])
-
-    function sliceText() {
-        let out = props.text.slice(0, 250);
-        out += "...";
-        setText(out)
-    }
+    }, [props.text, sliceText])
 
 
     return (
@@ -40,8 +41,5 @@ const ReviewText = (props) => {
     );
 }
 
-const Button = () => {
-
-}
 
 export default ReviewText;

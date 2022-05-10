@@ -1,38 +1,38 @@
 import Way from '../components/Way';
-import { useEffect, useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { useEffect } from 'react';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import Select from '@mui/material/Select';
 import Product from '../components/Product';
 import { useDispatch, useSelector } from "react-redux";
-import FilterDropDrown from '../components/FilterDropDrown';
-import filtersList from '../filters.json'
+// import FilterDropDrown from '../components/FilterDropDrown';
+// import filtersList from '../filters.json'
 import { setCatalog } from "../actions/product";
 import { Pagination } from '@mui/material';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+// import { NavLink, useRouteMatch } from 'react-router-dom';
 
 
 const CatalogPage = (props) => {
     const dispatch = useDispatch()
 
     // const [sortBy, setSortBy] = useState("bypop");
-    const [filters, setFilters] = useState({
-        manufacture: [],
-        steel: [],
-        handle: [],
-        guardback: []
-    })
+    // const [filters, setFilters] = useState({
+    //     manufacture: [],
+    //     steel: [],
+    //     handle: [],
+    //     guardback: []
+    // })
 
 
     const products = useSelector(state => state.catalog.catalog);
-    const [page, setPage] = useState(
-        parseInt(window.location.search.split("=")[1] || 1)
-    )
+    // const [page, setPage] = useState(
+    //     parseInt(window.location.search.split("=")[1] || 1)
+    // )
 
 
     useEffect(() => {
-        dispatch(setCatalog(page))
-    }, [])
+        dispatch(setCatalog())
+    }, [dispatch])
 
     // useEffect(() => {
     //     if (sortBy === "bypop") {

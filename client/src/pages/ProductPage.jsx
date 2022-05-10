@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Heart from '../images/productHeart.svg'
 import Compare from '../images/compare.svg'
-import Star from '../images/star.svg'
 import Basket from '../images/productBasket.svg'
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToBasket } from "../actions/product";

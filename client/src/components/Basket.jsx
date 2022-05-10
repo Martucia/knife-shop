@@ -1,7 +1,7 @@
 import img from "../images/k1.png";
 import closer from "../images/closer.svg";
 import deleteProduct from "../images/delete.svg";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProductFromBasket } from '../actions/product'
 import { NavLink } from 'react-router-dom';

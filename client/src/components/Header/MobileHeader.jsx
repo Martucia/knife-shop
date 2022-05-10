@@ -21,7 +21,7 @@ const MobileHeader = (props) => {
             out += product.count
         })
         setBasketCount(out)
-    }, [])
+    }, [basket])
 
     return (
         <>

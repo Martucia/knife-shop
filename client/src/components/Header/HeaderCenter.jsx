@@ -1,6 +1,6 @@
 import Logo from '../../images/logo.jpg'
 import Map from '../../images/map.svg'
-import Down from '../../images/drop-down.svg'
+// import Down from '../../images/drop-down.svg'
 import Heart from '../../images/heart.svg'
 import Basket from '../../images/basket.svg'
 import { NavLink } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import Star from '../images/star.svg'
+// import Star from '../images/star.svg'
 import Heart from '../images/productHeart.svg'
-import Compare from '../images/compare.svg'
+// import Compare from '../images/compare.svg'
 import Basket from '../images/productBasket.svg'
 import p1 from '../images/p1.png'
 import { addProductToBasket } from "../actions/product";
@@ -39,16 +39,16 @@ const Product = (props) => {
 
         let revLength = Number(props.data.reviews.length);
 
-        if (revLength == 0) {
+        if (revLength === 0) {
             setReviewsLength(props.data.reviews.length + " отзывов")
-        } else if (revLength == 1) {
+        } else if (revLength === 1) {
             setReviewsLength(props.data.reviews.length + " отзыв")
-        } else if (revLength == 2 || revLength == 3 || revLength == 4) {
+        } else if (revLength === 2 || revLength === 3 || revLength === 4) {
             setReviewsLength(props.data.reviews.length + " отзыва")
         } else {
             setReviewsLength(props.data.reviews.length + " отзывов")
         }
-    }, [])
+    }, [props.data.reviews])
 
     return (
         <div className="product">

@@ -14,14 +14,14 @@ const Footer = () => {
                             ИНФОРМАЦИЯ
                         </div>
                         <ul>
-                            <li><a href="#">Златоустовские ножи
+                            <li><a href="/">Златоустовские ножи
                                 в Москве и Московской
                                 области</a></li>
-                            <li><a href="#">Ножевые стали</a></li>
-                            <li><a href="#">О нас</a></li>
-                            <li><a href="#">Условия оплаты
+                            <li><a href="/">Ножевые стали</a></li>
+                            <li><a href="/">О нас</a></li>
+                            <li><a href="/">Условия оплаты
                                 и доставки</a></li>
-                            <li><a href="#">Политика
+                            <li><a href="/">Политика
                                 конфиденциальности</a></li>
                         </ul>
                     </div>
@@ -30,9 +30,9 @@ const Footer = () => {
                             СЛУЖБА ПОДДЕРЖКИ
                         </div>
                         <ul>
-                            <li><a href="#">Контактная информация</a></li>
-                            <li><a href="#">Возврат товара</a></li>
-                            <li><a href="#">Карта сайта</a></li>
+                            <li><a href="/">Контактная информация</a></li>
+                            <li><a href="/">Возврат товара</a></li>
+                            <li><a href="/">Карта сайта</a></li>
                         </ul>
                     </div>
                     <div className="footer__column">
@@ -40,9 +40,9 @@ const Footer = () => {
                             ДОПОЛНИТЕЛЬНО
                         </div>
                         <ul>
-                            <li><a href="#">Подарочные сертификаты</a></li>
-                            <li><a href="#">Партнеры</a></li>
-                            <li><a href="#">Товары со скидкой</a></li>
+                            <li><a href="/">Подарочные сертификаты</a></li>
+                            <li><a href="/">Партнеры</a></li>
+                            <li><a href="/">Товары со скидкой</a></li>
                         </ul>
                     </div>
                     <div className="footer__column">
@@ -50,10 +50,10 @@ const Footer = () => {
                             ЛИЧНЫЙ КАБИНЕТ
                         </div>
                         <ul>
-                            <li><a href="#">Личный кабинет</a></li>
-                            <li><a href="#">История заказов</a></li>
-                            <li><a href="#">Мои закладки</a></li>
-                            <li><a href="#">Рассылка новостей</a></li>
+                            <li><a href="/">Личный кабинет</a></li>
+                            <li><a href="/">История заказов</a></li>
+                            <li><a href="/">Мои закладки</a></li>
+                            <li><a href="/">Рассылка новостей</a></li>
                         </ul>
                     </div>
                 </div>
@@ -63,13 +63,13 @@ const Footer = () => {
                             КОНТАКТЫ
                         </div>
                         <ul>
-                            <li><a href="#"><img src={phone} alt="" />8 (800) 777-49-67</a></li>
-                            <li><a href="#"><img src={timer} alt="" />Пн-Пт
+                            <li><a href="/"><img src={phone} alt="" />8 (800) 777-49-67</a></li>
+                            <li><a href="/"><img src={timer} alt="" />Пн-Пт
                                 7:00 - 16:00 (МСК)</a></li>
-                            <li><a href="#"><img src={map} alt="" />Златоуст,
+                            <li><a href="/"><img src={map} alt="" />Златоуст,
                                 ул. Шоссейная,
                                 д. 1, офис «6Б»</a></li>
-                            <li><a href="#"><img src={mail} alt="" />info@zlatmax.ru</a></li>
+                            <li><a href="/"><img src={mail} alt="" />info@zlatmax.ru</a></li>
                         </ul>
                     </div>
                     <div className="footer__column">
@@ -77,7 +77,7 @@ const Footer = () => {
                             ПОЛЕЗНЫЕ ССЫЛКИ
                         </div>
                         <ul>
-                            <li><a href="#">Способы оплаты и доставки</a></li>
+                            <li><a href="/">Способы оплаты и доставки</a></li>
                         </ul>
                     </div>
                     <div className="footer__column">
@@ -87,7 +87,7 @@ const Footer = () => {
                         <p className="warranty">
                             Недовольны своей покупкой?
                             Вы можете вернуть ее в течении
-                            30 дней с даты получения, согласно <a href="#">нашим правилам</a>
+                            30 дней с даты получения, согласно <a href="/">нашим правилам</a>
                         </p>
                     </div>
                     <div className="footer__column footer__form">
@@ -118,7 +118,7 @@ const Footer = () => {
                         публичной офертой, определяемойположениями Статьи 437 Гражданского кодекса Российской Федерации.
                         При копировании материалов гиперссылка на www.zlatmax.ru обязательна!
                     </p>
-                    <a href="#">Златоустовские ножи www.zlatmax.ru ©</a>
+                    <a href="/">Златоустовские ножи www.zlatmax.ru ©</a>
                 </div>
             </div>
         </footer>

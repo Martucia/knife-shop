@@ -13,6 +13,7 @@
     "axios": "^0.26.1",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^7.0.1",
+    "parse-url": "^5.0.7",
     "radium": "^0.26.2",
     "react": "^18.0.0",
     "react-custom-scroll": "^4.4.0",
@@ -52,6 +53,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.5",
     "react-error-overlay": "^6.0.9"
   }
 }

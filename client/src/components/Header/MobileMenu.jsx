@@ -2,7 +2,7 @@ import closer from "../../images/closer-white.svg";
 import back from "../../images/back-white.svg";
 import right from "../../images/right-white.svg";
 import { NavLink } from 'react-router-dom';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Person from '../../images/Person.svg'
 import { logout } from '../../reducers/userReducer'

@@ -38,7 +38,7 @@ export const deleteProductFromBasket = (id, userId) => {
     return async dispatch => {
         try {
 
-            const response = await axios.delete(`http://localhost:5000/api/catalog/removeproduct?productId=${id}&userId=${userId}`);
+            await axios.delete(`http://localhost:5000/api/catalog/removeproduct?productId=${id}&userId=${userId}`);
 
             dispatch(removeFromBasket(id))
 

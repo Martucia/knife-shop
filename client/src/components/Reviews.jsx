@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import Input from "./Input"
+// import Input from "./Input"
 import { addReview } from "../actions/product";
 import { useDispatch, useSelector } from "react-redux";
 import img from "../images/avatar.png"
-import Star from '../images/star.svg'
 import Heart from '../images/productHeart.svg'
 import ReviewText from './ReviewText';
 import { Rating } from '@mui/material';
@@ -32,7 +31,7 @@ const ReviewsEmpty = (props) => {
 
     useEffect(() => {
         if (props.length > 0) setOpenInput(true)
-    }, [])
+    }, [props.length])
 
     const sendReview = () => {
         if (userName) {
