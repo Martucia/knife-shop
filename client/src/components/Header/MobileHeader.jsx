@@ -15,12 +15,16 @@ const MobileHeader = (props) => {
     const basket = useSelector(state => state.user.basket);
 
     useEffect(() => {
-        let out = 0;
+        let count = 0;
 
         basket.forEach(product => {
-            out += product.count
+            count += product.count
         })
+<<<<<<< HEAD
         setBasketCount(out)
+=======
+        setBasketCount(count)
+>>>>>>> f729405b1691c14ca4ad3499382651b20c0d1095
     }, [basket])
 
     return (

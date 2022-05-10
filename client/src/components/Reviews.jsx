@@ -47,7 +47,7 @@ const ReviewsEmpty = (props) => {
                 }
 
                 let newReviews = props.product.reviews.push(rev)
-                props.setProduct({...props.product, review: newReviews})
+                props.setProduct({ ...props.product, review: newReviews })
                 setInputVal('')
                 setRate(null)
             } else {
@@ -63,7 +63,8 @@ const ReviewsEmpty = (props) => {
 
     return (
         <>
-            <div className='product-swiper__reviews-row' style={!openInput ? { display: 'flex', alignItems: "center", flexDirection: "row" } : { display: 'none' }} >
+            <div className='product-swiper__reviews-row empty' style={!openInput ? { display: 'flex' } : { display: 'none' }} >
+                {/* style={!openInput ? { display: 'flex', alignItems: "center", flexDirection: "row" } : { display: 'none' }} */}
                 <div>
                     У данного товара нет отзывов. Станьте первым, кто оставил отзыв об этом товаре!
                 </div>

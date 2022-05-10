@@ -10,167 +10,166 @@ const authMiddleware = require('../middleware/auth.middleware')
 
 
 router.post(
-  '/addproduct',
-  // authMiddleware,
-  async (req, res) => {
-    try {
+    '/addproduct',
+    // authMiddleware,
+    async(req, res) => {
+        try {
 
-      const { name, size, material, manufacture, steel, handle, guardback, gilding, trademark, serie, price, description, onsale } = req.body
+            const { name, size, material, manufacture, steel, handle, guardback, gilding, trademark, serie, price, description, onsale } = req.body
 
-      const product = new Product({ name, size, material, manufacture, steel, handle, guardback, gilding, trademark, serie, price, description, onsale })
+            const product = new Product({ name, size, material, manufacture, steel, handle, guardback, gilding, trademark, serie, price, description, onsale })
 
-      await product.save()
+            await product.save()
 
-      res.status(201).json({ message: 'Продукт добавлен' })
+            res.status(201).json({ message: 'Продукт добавлен' })
 
-    } catch (e) {
-      console.log(e)
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
-    }
-  })
-
-router.get(
-  '/',
-
-  async (req, res) => {
-
-    try {
-      const perPage = 1;
-      const page = parseInt(req.query.page) || 1;
-
-
-      // const products = await Product.find().populate('reviews').skip(perPage * (page - 1)).limit(perPage)
-
-      const products = await Product.find()
-
-      // const products = await Product.find(query, fields, {skip: perPage * (page - 1), limit: perPage}, function(err, results) {
-      //   console.log(results)
-      // })
-
-      // .skip(perPage * (page - 1)).limit(perPage)
-
-      console.log(products)
-
-      
-
-      return res.json({ products })
-
-    } catch (e) {
-      console.log(e)
-      res.status(503).json({ message: 'Что-то пошло не так, попробуйте снова' })
-    }
-  })
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        }
+    })
 
 router.get(
-  '/onsale',
-  // authMiddleware,
-  async (req, res) => {
-    try {
+    '/',
 
-      const products = await Product.find({ onsale: true }).populate('reviews')
+    async(req, res) => {
 
-      return res.json({ products })
+        try {
+            const perPage = 1;
+            const page = parseInt(req.query.page) || 1;
 
-    } catch (e) {
-      res.status(500).json({ message: e })
-    }
-  })
+
+            // const products = await Product.find().populate('reviews').skip(perPage * (page - 1)).limit(perPage)
+
+            const products = await Product.find()
+
+            // const products = await Product.find(query, fields, {skip: perPage * (page - 1), limit: perPage}, function(err, results) {
+            //   console.log(results)
+            // })
+
+            // .skip(perPage * (page - 1)).limit(perPage)
+
+            // console.log(products)
+
+
+            return res.json({ products })
+
+        } catch (e) {
+            console.log(e)
+            res.status(503).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        }
+    })
 
 router.get(
-  '/:id',
-  // authMiddleware,
-  async (req, res) => {
-    try {
+    '/onsale',
+    // authMiddleware,
+    async(req, res) => {
+        try {
 
-      let id = req.params.id.slice(1);
+            const products = await Product.find({ onsale: true }).populate('reviews')
 
-      const product = await Product.findOne({ _id: id }).populate('reviews')
+            return res.json({ products })
 
-      return res.json({ product })
+        } catch (e) {
+            res.status(500).json({ message: e })
+        }
+    })
 
-    } catch (e) {
-      res.status(500).json({ message: e })
-    }
-  })
+router.get(
+    '/:id',
+    // authMiddleware,
+    async(req, res) => {
+        try {
+
+            let id = req.params.id.slice(1);
+
+            const product = await Product.findOne({ _id: id }).populate('reviews')
+
+            return res.json({ product })
+
+        } catch (e) {
+            res.status(500).json({ message: e })
+        }
+    })
 
 
 router.patch(
-  '/addtobasket/:id',
-  // authMiddleware,
-  async (req, res) => {
-    try {
-      const { id } = req.body;
+    '/addtobasket/:id',
+    // authMiddleware,
+    async(req, res) => {
+        try {
+            const { id } = req.body;
 
-      console.log(id)
+            console.log(id)
 
-      const candidate = await Product.findOne({ _id: id });
+            const candidate = await Product.findOne({ _id: id });
 
-      if (!candidate) {
-        return res.status(400).json({ message: 'Такого продукта не существует' })
-      };
+            if (!candidate) {
+                return res.status(400).json({ message: 'Такого продукта не существует' })
+            };
 
-      let theId = req.params.id.slice(1);
+            let theId = req.params.id.slice(1);
 
-      const basket = await Basket.findOne({ owner: theId })
+            const basket = await Basket.findOne({ owner: theId })
 
-      const candProduct = await BasketProduct.findOne({ owner: basket._id, _id: id })
+            const candProduct = await BasketProduct.findOne({ owner: basket._id, _id: id })
 
-      if (candProduct) {
-        candProduct.count = candProduct.count + 1
-        await candProduct.save();
-        return res.status(201).json({ message: 'Продукт +1', product: candProduct })
-      };
+            if (candProduct) {
+                candProduct.count = candProduct.count + 1
+                await candProduct.save();
+                return res.status(201).json({ message: 'Продукт +1', product: candProduct })
+            };
 
-      const product = new BasketProduct({ _id: candidate._id, name: candidate.name, price: candidate.price, owner: basket._id });
+            const product = new BasketProduct({ _id: candidate._id, name: candidate.name, price: candidate.price, owner: basket._id });
 
-      basket.products.push(product)
+            basket.products.push(product)
 
-      await basket.save();
+            await basket.save();
 
-      await product.save();
+            await product.save();
 
-      return res.status(201).json({ message: 'Продукт добавлен до корзины', product })
+            return res.status(201).json({ message: 'Продукт добавлен до корзины', product })
 
 
-    } catch (e) {
-      console.log(e)
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
-    }
-  })
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        }
+    })
 
 router.delete(
-  "/removeproduct",
-  // authMiddleware,
-  async (req, res) => {
-    try {
-      const { userId, productId } = req.query
+    "/removeproduct",
+    // authMiddleware,
+    async(req, res) => {
+        try {
+            const { userId, productId } = req.query
 
-      // console.log(2, userId, productId)
+            // console.log(2, userId, productId)
 
-      const basket = await Basket.findOne({ owner: userId })
+            const basket = await Basket.findOne({ owner: userId })
 
-      let outBasket = basket.products.filter(itemId => {
-        let out = itemId.toString().replace(/new ObjectId\("(.*)"\)/, "$1")
+            let outBasket = basket.products.filter(itemId => {
+                let out = itemId.toString().replace(/new ObjectId\("(.*)"\)/, "$1")
 
-        return out !== productId
-      })
-
-
-      basket.products = outBasket
-      await basket.save()
-
-      const baskProduct = await BasketProduct.findOne({ owner: basket._id, _id: productId });
-      await baskProduct.delete()
-
-      res.status(204).json({ id: productId })
+                return out !== productId
+            })
 
 
-    } catch (e) {
-      res.status(404)
-      console.log(e)
-      res.send({ error: "Product doesn't exist!" })
-    }
-  })
+            basket.products = outBasket
+            await basket.save()
+
+            const baskProduct = await BasketProduct.findOne({ owner: basket._id, _id: productId });
+            await baskProduct.delete()
+
+            res.status(204).json({ id: productId })
+
+
+        } catch (e) {
+            res.status(404)
+            console.log(e)
+            res.send({ error: "Product doesn't exist!" })
+        }
+    })
 
 // router.get(
 //   '/filter',
@@ -194,51 +193,51 @@ router.delete(
 //   })
 
 router.patch(
-  '/addreview',
-  // authMiddleware,
-  async (req, res) => {
-    try {
-      const { text, productId, userName, rate } = req.body;
+    '/addreview',
+    // authMiddleware,
+    async(req, res) => {
+        try {
+            const { text, productId, userName, rate } = req.body;
 
-      const review = new Review({ text, author: userName, rate, owner: productId })
+            const review = new Review({ text, author: userName, rate, owner: productId })
 
-      const product = await Product.findOne({ _id: productId })
+            const product = await Product.findOne({ _id: productId })
 
-      product.reviews.push(review)
+            product.reviews.push(review)
 
-      await product.save();
+            await product.save();
 
-      await review.save();
+            await review.save();
 
-      return res.status(201).json({ message: 'Отзыв отправлен', review })
+            return res.status(201).json({ message: 'Отзыв отправлен', review })
 
 
-    } catch (e) {
-      console.log(e)
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
-    }
-  })
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        }
+    })
 
 router.delete(
-  "/removereview",
-  // authMiddleware,
-  async (req, res) => {
-    try {
-      const { productId } = req.body;
+    "/removereview",
+    // authMiddleware,
+    async(req, res) => {
+        try {
+            const { productId } = req.body;
 
-      const product = await Product.findOne({ _id: productId })
+            const product = await Product.findOne({ _id: productId })
 
-      product.reviews = []
+            product.reviews = []
 
-      await product.save();
+            await product.save();
 
-      return res.status(201).json({ message: 'Отзыв удален' })
+            return res.status(201).json({ message: 'Отзыв удален' })
 
-    } catch (e) {
-      res.status(404)
-      console.log(e)
-      res.send({ error: "Product doesn't exist!" })
-    }
-  })
+        } catch (e) {
+            res.status(404)
+            console.log(e)
+            res.send({ error: "Product doesn't exist!" })
+        }
+    })
 
 module.exports = router

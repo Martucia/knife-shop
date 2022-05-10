@@ -6,16 +6,19 @@ const REMOVE_FROM_BASKET = "REMOVE_FROM_BASKET"
 const defaultState = {
     currentUser: {},
     isAuth: false,
-    basket: []
+    basket: [],
+    isAdmin: false
 }
 
 export default function userReducer(state = defaultState, action) {
     switch (action.type) {
         case SET_USER:
+            console.log(action)
             return {
                 ...state,
                 currentUser: action.payload,
                 isAuth: true,
+                isAdmin: action.isAdmin,
                 basket: action.basket
             }
         case LOGOUT:
@@ -24,6 +27,7 @@ export default function userReducer(state = defaultState, action) {
                 ...state,
                 currentUser: {},
                 isAuth: false,
+                isAdmin: false,
                 basket: []
             }
         case ADD_TO_BASKET:
@@ -32,7 +36,7 @@ export default function userReducer(state = defaultState, action) {
                 const arr = state.basket.map((product) => {
                     if (product._id === action.payload._id) {
                         isNew = false;
-                        return { ...product, count: product.count + 1 }
+                        return {...product, count: product.count + 1 }
                     }
 
                     return product;
@@ -51,7 +55,7 @@ export default function userReducer(state = defaultState, action) {
             }
 
         case REMOVE_FROM_BASKET:
-            
+
             return {
                 ...state,
                 basket: state.basket.filter(product => {
@@ -64,8 +68,7 @@ export default function userReducer(state = defaultState, action) {
 }
 
 
-export const setUser = (user, basket) => ({ type: SET_USER, payload: user, basket: basket })
+export const setUser = (user, basket, isAdmin) => ({ type: SET_USER, payload: user, basket, isAdmin })
 export const addToBasket = product => ({ type: ADD_TO_BASKET, payload: product })
 export const logout = () => ({ type: LOGOUT })
 export const removeFromBasket = id => ({ type: REMOVE_FROM_BASKET, payload: id })
-

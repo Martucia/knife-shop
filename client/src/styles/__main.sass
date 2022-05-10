@@ -391,6 +391,67 @@ body.noscroll
     100%
         Transform: rotate(180deg)
 
+.admin-catalog
+    width: 90%
+    margin: 50px auto
+    display: flex
+    flex-direction: column
+    gap: 25px
+    font-weight: 500
+    font-family: 'Montserrat'
+    &-product
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding: 10px 40px
+        line-height: 22px
+        background: #FEFEFE
+        font-weight: 500
+        height: 100px
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+        &__img
+            height: 100%
+            img
+                height: 100%
+        &__title
+            a
+                font-weight: 600
+                font-size: 20px
+                line-height: 34px
+                color: #141414
+        &__left
+            display: flex
+            align-items: center
+            gap: 25px
+            height: 100%
+        &__right
+            display: flex
+            align-items: center
+        &__sale
+            background: #E8AA31
+            padding: 7px 22px
+            font-weight: 600
+            font-size: 18px
+            color: #FFFFFF
+            border-radius: 3px
+        &__reviews
+            a
+                font-size: 16px
+                line-height: 34px
+                color: #ABABAB
+                margin: 0 70px
+        &__price
+            font-weight: 600
+            font-size: 20px
+            line-height: 34px
+            color: #141414
+        &__delete
+            margin: 0 40px 0 100px
+        button
+            height: 25px
+            img
+                height: 100%
+
 .product-info
     width: 90%
     max-width: 1600px
@@ -527,12 +588,66 @@ body.noscroll
     font-family: 'Montserrat', sans-serif
     &__content
         background: #FFFFFF
-        box-shadow: 8px 16px 32px rgba(255, 102, 51, 0.2)
+        box-shadow: 8px 16px 32px rgba(218, 218, 218, 0.2)
         border-radius: 4px
         padding: 72px 80px 40px
         position: relative
         display: flex
         flex-direction: column
+        &.editor
+            padding: 80px 50px
+            max-height: 90%
+            width: 90%
+        &__photos
+            display: flex
+            gap: 15px
+            // align-items: center
+            &__photo
+                width: 200px
+                position: relative
+                display: flex
+                flex-direction: column
+                .delete
+                    position: absolute
+                    width: 100%
+                    height: 100%
+                    background: rgba(11, 11, 11, 0.55)
+                    left: 0
+                    top: 0
+                    display: none
+                    align-items: center
+                    justify-content: center
+                    img
+                        height: 60px
+                        width: 60px
+                &.add-new
+                    background: #fff
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    height: 200px
+                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+                p
+                    width: 100%
+                    &.img
+                        height: 200px
+                        position: relative
+                        margin-bottom: 10px
+                        &:hover
+                            .delete
+                                display: flex
+                    button
+                        font-weight: 500
+                        font-size: 14px
+                        line-height: 17px
+                        color: rgba(207, 207, 207, 0.74)
+                        &.main
+                            color: rgba(251, 181, 0, 0.74)
+                    img
+                        object-fit: cover
+                        width: 100%
+                        height: 100%
+
     &__title
         color: #414141
         font-weight: 700
@@ -804,6 +919,11 @@ body.noscroll
             padding-bottom: 45px
             margin-bottom: 45px
             border-bottom: 1px solid rgba(20, 20, 20, 0.15)
+            &.empty
+                display: flex
+                align-items: center
+                flex-direction: row
+
             button
                 background: #000000
                 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25)
