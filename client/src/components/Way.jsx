@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import Right from "../images/right-grey.svg"
+import React from 'react';
 
 
 const Way = (props) => {

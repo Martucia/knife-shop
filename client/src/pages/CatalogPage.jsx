@@ -1,19 +1,22 @@
+import React from 'react';
 import Way from '../components/Way';
 import { useEffect } from 'react';
 // import MenuItem from '@mui/material/MenuItem';
 // import FormControl from '@mui/material/FormControl';
 // import Select from '@mui/material/Select';
 import Product from '../components/Product';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import FilterDropDrown from '../components/FilterDropDrown';
 // import filtersList from '../filters.json'
-import { setCatalog } from "../actions/product";
+// import { setCatalog } from "../actions/product";
 import { Pagination } from '@mui/material';
-// import { NavLink, useRouteMatch } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CatalogPage = (props) => {
-    const dispatch = useDispatch()
+    const count = useSelector(state => state.catalog.pagesCount);
+
+
+    // const dispatch = useDispatch()
 
     // const [sortBy, setSortBy] = useState("bypop");
     // const [filters, setFilters] = useState({
@@ -23,16 +26,28 @@ const CatalogPage = (props) => {
     //     guardback: []
     // })
 
+    const navigate = useNavigate();
+
+    const handleChange = (event, value) => {
+        props.setPage(value);
+        navigate(`/catalog?page=${value}`)
+        window.scrollTo(0, 0)
+    };
 
     const products = useSelector(state => state.catalog.catalog);
-    // const [page, setPage] = useState(
-    //     parseInt(window.location.search.split("=")[1] || 1)
-    // )
 
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const page = params.get('page');
 
     useEffect(() => {
-        dispatch(setCatalog())
-    }, [dispatch])
+        props.setPage(page || 1)
+    }, [page, props])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
 
     // useEffect(() => {
     //     if (sortBy === "bypop") {
@@ -46,11 +61,11 @@ const CatalogPage = (props) => {
 
 
     //if (products) 
-    
+
     return (
         <div className="catalog">
             <div className="catalog__header">
-                <Way way="Разделочные ножи" wayUlr="carving-knives" />
+                <Way way="Разделочные ножи" wayUrl="catalog" />
                 {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
                     <Select
                         value={sortBy}
@@ -80,7 +95,17 @@ const CatalogPage = (props) => {
                             return <Product data={product} />
                         })}
                     </div>
-                    <Pagination />
+                    {count > 1 && <Pagination sx={{
+                        '& .Mui-selected': {
+                            backgroundColor: "#F6B817",
+                            color: "#fff",
+                            '&:hover': {
+                                backgroundColor: "#F6B817",
+                            }
+                        }
+                    }}
+                        className='pagination' page={Number(page) || 1} onChange={handleChange} count={count} />}
+
                 </div>
             </div>
         </div>

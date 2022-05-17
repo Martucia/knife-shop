@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Input from './Input';
 import { login } from "../actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
+import { response } from 'express';
 
 
 
@@ -14,21 +15,26 @@ function Authorization(props) {
 
     const isAuth = useSelector(state => state.user.isAuth);
 
-    let yes = false;
-
     useEffect(() => {
         if (props.isActive && !isAuth) {
-            yes = true;
             document.body.classList.add("noscroll");
         } else {
             props.openLog(false)
+            document.body.classList.remove("noscroll");
         }
-    }, [props.isActive, isAuth])
+    }, [props, isAuth])
 
+
+    // const handleSubmit = () => {
+    //     dispatch(login(email, password)).then((response) => {
+    //         console.log(response)
+    //     })
+
+    // }
 
     return (
 
-        <div className='modal' style={yes ? { display: 'flex' } : { display: "none" }} onClick={() => props.openLog(false)} >
+        <div className='modal' style={{ justifyContent: "center" }} onClick={() => props.openLog(false)} >
             <div className="modal__content" onClick={(e) => e.stopPropagation()}>
                 <button className="close" onClick={() => {
                     props.openLog(false)
@@ -47,10 +53,7 @@ function Authorization(props) {
                 <Input label="Email" name={"email"} setValue={setEmail} value={email} type="text" placeholder="Введите Email" />
                 <Input label="Пароль" name={"password"} setValue={setPassword} value={password} type="password" placeholder="Введите пароль" />
                 <div className="modal__btn">
-                    <button onClick={() => {
-                        dispatch(login(email, password))
-                        document.body.classList.remove("noscroll");
-                    }}>
+                    <button onClick={() => dispatch(login(email, password))}>
                         Вход
                     </button>
                 </div>

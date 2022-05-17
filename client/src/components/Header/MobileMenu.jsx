@@ -73,6 +73,8 @@ const MobileMenu = (props) => {
 }
 
 const MainMenuPage = (props) => {
+    const isAdmin = useSelector(state => state.user.isAdmin);
+
     return (
         <div className="mobile-menu__inner" >
             <NavLink to="/">
@@ -93,6 +95,10 @@ const MainMenuPage = (props) => {
             <NavLink to="/">
                 О нас
             </NavLink>
+            {isAdmin && <NavLink to="/admin-catalog?page=1">
+                Админ каталог
+            </NavLink>}
+
         </div >
     )
 }

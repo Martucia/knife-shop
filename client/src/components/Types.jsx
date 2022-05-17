@@ -1,9 +1,11 @@
+import React from 'react';
 import k1 from "../images/k1.png"
 import k2 from "../images/k2.png"
 import k3 from "../images/k3.png"
 import k4 from "../images/k4.png"
 import k5 from "../images/k5.png"
 import k6 from "../images/k6.png"
+import { NavLink } from 'react-router-dom';
 
 const Types = () => {
     return (
@@ -21,27 +23,29 @@ const Types = () => {
 const Block = (props) => {
     return (
         <div className={"block " + props.className}>
-            <div className="block__text">
-                <div className="title">
-                    {props.title}
+            <NavLink to="/catalog">
+                <div className="block__text">
+                    <div className="title">
+                        {props.title}
+                    </div>
+                    <div className="line"></div>
+                    <ul>
+                        <li>
+                            Разделочные
+                        </li>
+                        <li>
+                            Туристические
+                        </li>
+                        <li>
+                            Охотничьи
+                        </li>
+                    </ul>
                 </div>
-                <div className="line"></div>
-                <ul>
-                    <li>
-                        Разделочные
-                    </li>
-                    <li>
-                        Туристические
-                    </li>
-                    <li>
-                        Охотничьи
-                    </li>
-                </ul>
-            </div>
-            <div className="block__img"  >
-                {/* style={{ right: props.right + 'px', bottom: props.bottom + 'px' }} */}
-                <img src={props.img} alt="" />
-            </div>
+                <div className="block__img"  >
+                    {/* style={{ right: props.right + 'px', bottom: props.bottom + 'px' }} */}
+                    <img src={props.img} alt="" />
+                </div>
+            </NavLink>
         </div>
     )
 }

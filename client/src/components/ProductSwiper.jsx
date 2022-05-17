@@ -6,6 +6,7 @@ import Reviews from "./Reviews"
 import { NavLink } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import React from 'react';
 
 
 const ProductSwiper = (props) => {

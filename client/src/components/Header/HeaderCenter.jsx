@@ -5,7 +5,6 @@ import Heart from '../../images/heart.svg'
 import Basket from '../../images/basket.svg'
 import { NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
-// import { basketCount } from '../../reducers/userReducer';
 import { useEffect, useState } from 'react';
 
 
@@ -14,19 +13,25 @@ const HeaderCenter = (props) => {
     const [basketSumm, setBasketSumm] = useState(0);
     const basket = useSelector(state => state.user.basket);
     const isAdmin = useSelector(state => state.user.isAdmin);
+    const isAuth = useSelector(state => state.user.isAuth);
 
 
     useEffect(() => {
         let count = 0;
         let price = 0;
 
-        basket.forEach(product => {
+        if (basket) basket.forEach(product => {
             count += product.count
-            price += (product.price * product.count)
+            price += (product.data.price * product.count)
         })
+
         setBasketCount(count)
         setBasketSumm(price)
     }, [basket])
+
+    const handleOpenBasket = () => {
+        isAuth ? props.openBasket(true) : props.openLog(true)
+    }
 
 
     if (!isAdmin) {
@@ -59,7 +64,7 @@ const HeaderCenter = (props) => {
                         </NavLink>
 
                         <div className='balance'>
-                            <button className='basket-btn' onClick={() => props.openBasket(true)}>
+                            <button className='basket-btn' onClick={handleOpenBasket}>
                                 <img src={Basket} alt="" />
                                 <p>{basketCount}</p>
                             </button>
@@ -88,7 +93,7 @@ const HeaderCenter = (props) => {
                         </NavLink>
                     </div>
                     <div className="header__center__right">
-                        < NavLink to="/admin-catalog">
+                        < NavLink to="/admin-catalog?page=1">
                             Редагувати товар
                         </NavLink>
 

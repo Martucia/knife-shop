@@ -90,7 +90,8 @@ body.noscroll
             line-height: 32px
             text-align: center
             color: #FFFFFF
-            justify-content: center
+            align-items: center
+            // justify-content: center
             gap: 15px
 
 .types
@@ -107,9 +108,13 @@ body.noscroll
         padding: 30px 30px 60px
         position: relative
         overflow: hidden
+        a
+            width: 100%
+            height: 100%
+            color: #141414
         &__text
             z-index: 2
-
+        
         .title
             font-weight: 600
             font-size: 20px
@@ -205,11 +210,18 @@ body.noscroll
 .product
     background: #FEFEFE
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
-    padding: 20px 20px 170px
+    padding: 20px 20px 205px
     display: flex
     flex-direction: column
     line-height: 34px
     position: relative
+    // min-width: 270px
+    width: 100%
+    &-unavailable
+        opacity: .35
+        .unavailable
+            font-size: 16px
+            height: 46px
     .onsale
         position: absolute
         left: 0
@@ -221,12 +233,18 @@ body.noscroll
         color: #FFFFFF
         padding: 7px 22px
     &__img
-        display: flex
-        align-items: center
-        justify-content: center
         margin-bottom: 20px
+        height: 200px
+        a
+            height: 100%
+            width: 100%
+            display: flex
+            align-items: center
+            justify-content: center
         img
+            height: 100%
             max-width: 90%
+            object-fit: contain
     &__title
         a
             font-weight: 600
@@ -267,8 +285,10 @@ body.noscroll
         border-top: 1px solid rgba(20, 20, 20, 0.5)
         .price
             font-weight: 600
-            font-size: 20px
+            font-size: 18px
             color: #141414
+            display: flex
+            flex-direction: column
         .buttons
             display: flex
             align-items: center
@@ -305,7 +325,7 @@ body.noscroll
     gap: 15px
     width: 100%
     max-width: 1600px
-    margin: 60px auto 30px
+    margin: 30px auto
     a
         font-family: 'Montserrat'
         font-weight: 500
@@ -329,6 +349,7 @@ body.noscroll
     &__inner
         display: grid
         grid-template-columns: 375px 1fr
+        // grid-template-columns: 1fr
         gap: 30px
         align-items: flex-start
     &__products
@@ -384,6 +405,13 @@ body.noscroll
                 display: flex
                 flex-direction: column
                 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+.pagination
+    margin-top: 40px
+    display: flex
+    justify-content: flex-end
+    margin-bottom: 100px
+    .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected
+        background: #F6B817
 
 @keyframes rotate
     0%
@@ -393,12 +421,28 @@ body.noscroll
 
 .admin-catalog
     width: 90%
-    margin: 50px auto
+    margin: 30px auto 60px
     display: flex
     flex-direction: column
     gap: 25px
     font-weight: 500
     font-family: 'Montserrat'
+    &__wrapper
+        display: flex
+        flex-direction: column
+        gap: 25px
+    &__header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        a
+            color: #141414
+            display: flex
+            white-space: nowrap
+            align-items: center
+        .add-new
+            color: #E8AA31
+            font-weight: 500
     &-product
         display: flex
         justify-content: space-between
@@ -409,10 +453,18 @@ body.noscroll
         font-weight: 500
         height: 100px
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+        position: relative
+        white-space: nowrap
         &__img
             height: 100%
+            width: 100px
+            display: flex
+            justify-content: center
+            align-items: center
             img
                 height: 100%
+                max-width: 100%
+                max-height: 100px
         &__title
             a
                 font-weight: 600
@@ -429,11 +481,15 @@ body.noscroll
             align-items: center
         &__sale
             background: #E8AA31
-            padding: 7px 22px
             font-weight: 600
             font-size: 18px
-            color: #FFFFFF
+            color: #494949
             border-radius: 3px
+            position: absolute
+            left: -3px
+            top: 7px
+            padding: 5px 12px
+            color: #fff
         &__reviews
             a
                 font-size: 16px
@@ -442,9 +498,10 @@ body.noscroll
                 margin: 0 70px
         &__price
             font-weight: 600
-            font-size: 20px
-            line-height: 34px
+            font-size: 18px
+            line-height: 26px
             color: #141414
+
         &__delete
             margin: 0 40px 0 100px
         button
@@ -468,22 +525,31 @@ body.noscroll
         gap: 15px
         .main-photo
             width: 100%
-            max-height: 500px
+            height: 500px
+            // height: 383px
             overflow: hidden
+            display: flex
+            align-items: center
+            justify-content: center
             img
                 width: 100%
                 max-height: 100%
+                object-fit: cover
+                height: 100%
         .photo-row
             display: grid
             gap: 15px
             width: 100%
+            height: 120px
             // grid-template-columns: auto
             // grid-template-columns: minmax(100px, max-content)
             grid-template-columns: 1fr 1fr 1fr 1fr
             img
                 width: 100%
-                height: auto
+                // height: auto
+                height: 100%
                 cursor: pointer
+                object-fit: cover
 
     .information
         background: #FEFEFE
@@ -495,7 +561,7 @@ body.noscroll
         &__header
             display: flex
             justify-content: space-between
-            align-items: center
+            // align-items: center
             margin-bottom: 15px
             &__left
                 display: flex
@@ -510,7 +576,8 @@ body.noscroll
             &__buttons
                 display: flex
                 align-items: center
-                gap: 15px
+                gap: 25px
+                height: 100%
         .state
             font-size: 16px
             line-height: 20px
@@ -538,9 +605,12 @@ body.noscroll
         .interaction
             display: flex
             justify-content: space-between
+
             .count
                 display: flex
                 align-items: center
+                margin-right: 10px
+                display: none
                 button
                     height: 46px
                     width: 46px
@@ -548,6 +618,9 @@ body.noscroll
                     line-height: 29px
                     color: #FFFFFF
                     background: #141414
+                    &.disabled
+                        background: #b0b0b0
+                        white-space: nowrap
                 span
                     margin: 0 22px
             .btns
@@ -562,6 +635,7 @@ body.noscroll
                     background: #141414
                     padding: 0 45px
                     color: #FFFFFF
+                    white-space: nowrap
                     height: 46px
                 .tobasket
                     background: #E8AA31
@@ -573,19 +647,33 @@ body.noscroll
                     white-space: nowrap
                     &:hover
                         box-shadow: 0px 6px 20px rgba(232, 170, 49, 0.63)
+                .disabled
+                    box-shadow: none
+                    background: #b0b0b0
+                    display: flex
+                    align-items: center
+                    gap: 10px
+                    &:hover
+                        box-shadow: none
 
 .modal
     height: 100vh
     width: 100vw
     background: rgba(19, 19, 19, 0.8)
     position: fixed
-    left: 0
     top: 0
+    bottom: 0
+    right: 0
+    left: 0
     display: flex
     align-items: center
-    justify-content: center
     z-index: 101
     font-family: 'Montserrat', sans-serif
+    overflow: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+    flex-flow: column nowrap
+    padding: 50px 0
     &__content
         background: #FFFFFF
         box-shadow: 8px 16px 32px rgba(218, 218, 218, 0.2)
@@ -594,59 +682,156 @@ body.noscroll
         position: relative
         display: flex
         flex-direction: column
+        gap: 30px
         &.editor
             padding: 80px 50px
-            max-height: 90%
+            // max-height: 90%
             width: 90%
-        &__photos
-            display: flex
-            gap: 15px
-            // align-items: center
-            &__photo
-                width: 200px
-                position: relative
+            gap: 40px
+            form
+                width: 100%
+                height: 100%
                 display: flex
                 flex-direction: column
-                .delete
-                    position: absolute
-                    width: 100%
-                    height: 100%
-                    background: rgba(11, 11, 11, 0.55)
-                    left: 0
-                    top: 0
-                    display: none
-                    align-items: center
-                    justify-content: center
-                    img
-                        height: 60px
-                        width: 60px
-                &.add-new
-                    background: #fff
+                gap: 30px
+                input[type=text], textarea, input[type=number]
+                    background: #FFFFFF
+                    border: 1px solid rgba(20, 20, 20, 0.5)
+                    // box-shadow: -1px 1px 19px rgb(20 20 20 / 15%)
+                    border-radius: 4px
+                    font-size: 18px
+                    padding: 6px 15px
+                    background: rgba(7, 7, 7, 0.03)
+                input[type=checkbox]
+                    width: 20px
+                    height: 20px
+                    border: 1px solid #000000
+                    border-radius: 2px
+                    &:checked
+                        background: #e8aa31
+                textarea
+                    padding-top: 15px
+                input.form-send
+                    background: #E8AA31
+                    box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.43)
+                    border-radius: 3px
+                    color: #fff
+                    font-weight: 600
+                    font-size: 18px
+                    line-height: 46px
+                    font-family: 'Montserrat'
+                    max-width: 335px
+                    padding: 0 100px
+                label
+                    font-size: 18px
+                    color: #141414
+                    font-weight: 500
                     display: flex
-                    align-items: center
-                    justify-content: center
-                    height: 200px
-                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
-                p
+                    flex-direction: column
+                    gap: 10px
+                    &.check-label
+                        flex-direction: row
+                .error
+                    color: #7a0000
+                    font-size: 16px
+                    margin-top: 5px
+                    font-weight: 500
+                img
+                    max-height: 300px
+                .form__photos
+                    display: flex
+                    gap: 15px
+                    margin-bottom: 20px
                     width: 100%
-                    &.img
+                    flex-wrap: wrap
+                .form__photo
+                    max-width: 200px
+                    position: relative
+                    height: 200px
+                    margin-top: 30px
+                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)
+                    .delete
+                        position: absolute
+                        width: 100%
+                        height: 100%
+                        background: rgba(11, 11, 11, 0.55)
+                        left: 0
+                        top: 0
+                        display: none
+                        align-items: center
+                        justify-content: center
+                        cursor: pointer
+                        img
+                            height: 60px
+                            width: 60px
+                    &.add-new
+                        background: #fff
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        height: 200px
+                        cursor: pointer
+                        input
+                            width: 100%
+                            height: 100%
+                            color: transparent
+                            cursor: pointer
+                            opacity: 0
+                    .img
                         height: 200px
                         position: relative
-                        margin-bottom: 10px
+                        // margin-bottom: 10px
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        width: 100%
                         &:hover
                             .delete
                                 display: flex
-                    button
-                        font-weight: 500
-                        font-size: 14px
-                        line-height: 17px
-                        color: rgba(207, 207, 207, 0.74)
-                        &.main
-                            color: rgba(251, 181, 0, 0.74)
-                    img
-                        object-fit: cover
+                        .image
+                            object-fit: cover
+                            // width: 100%
+                            height: 100%
+                            max-width: 100%
+                    p
                         width: 100%
-                        height: 100%
+                        button
+                            font-weight: 500
+                            font-size: 14px
+                            line-height: 17px
+                            color: rgba(207, 207, 207, 0.74)
+                            &.main
+                                color: rgba(251, 181, 0, 0.74)
+
+            .check
+                display: flex
+                align-items: center
+                gap: 10px
+                label
+                    font-size: 18px
+                    color: #141414
+                    font-weight: 500
+                input
+                    width: 20px
+                    height: 20px
+                    border: 1px solid #000000
+                    border-radius: 2px
+                    &:checked
+                        background: #e8aa31
+            .edit-button
+                display: flex
+                justify-content: flex-end
+                a, button
+                    background: #E8AA31
+                    box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.43)
+                    border-radius: 3px
+                    color: #fff
+                    font-weight: 600
+                    font-size: 18px
+                    line-height: 46px
+                    font-family: 'Montserrat'
+                    max-width: 335px
+                    padding: 0 100px
 
     &__title
         color: #414141
@@ -654,22 +839,26 @@ body.noscroll
         font-size: 24px
         text-align: center
         margin-bottom: 40px
+
     .input__block
         display: flex
         flex-direction: column
-        margin-bottom: 32px
+        // margin-bottom: 32px
         label
             font-size: 18px
             display: block
             color: #8f8f8fa4
             line-height: 150%
-        input
+        .input
             background: #FFFFFF
             border: 1px solid rgba(20, 20, 20, 0.5)
-            box-shadow: 4px 8px 16px rgba(20, 20, 20, 0.15)
+            // box-shadow: -1px 1px 19px rgb(20 20 20 / 15%)
             border-radius: 4px
             font-size: 21px
             padding: 12px 22px
+            background: rgba(7, 7, 7, 0.03)
+        .check
+            margin-bottom: 20px
     &__btn
         button
             background: #E8AA31
@@ -787,8 +976,11 @@ body.noscroll
                 display: flex
                 align-items: center
                 justify-content: center
+                margin-right: 20px
                 img
                     height: 100%
+                    max-width: 100%
+                    object-fit: contain
             &__title
                 font-size: 19px
                 font-weight: 500
@@ -1025,6 +1217,14 @@ body.noscroll
                 font-size: 14px
                 line-height: 17px
                 color: rgba(20, 20, 20, 0.3)
+            &__right
+                display: flex
+                align-items: center
+                gap: 15px
+                .delete
+                    height: 25px
+                    img
+                        height: 100%
 
         &__text
             margin-bottom: 20px

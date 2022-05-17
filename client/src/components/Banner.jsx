@@ -4,6 +4,7 @@ import b2 from '../images/b2.svg'
 import b3 from '../images/b3.svg'
 import b4 from '../images/b4.svg'
 
+
 const Banner = () => {
     return (
         <div className="banner">

@@ -3,6 +3,7 @@ import timer from "../images/oclock.svg"
 import map from "../images/map-icon.svg"
 import mail from "../images/mail.svg"
 import right from "../images/right-white.svg"
+import React from 'react';
 
 const Footer = () => {
     return (

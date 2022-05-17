@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import React from 'react';
 
 const ReviewText = (props) => {
     const [text, setText] = useState('')

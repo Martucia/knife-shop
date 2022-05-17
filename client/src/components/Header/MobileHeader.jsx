@@ -17,50 +17,48 @@ const MobileHeader = (props) => {
     useEffect(() => {
         let count = 0;
 
-        basket.forEach(product => {
+        if (basket) basket.forEach(product => {
             count += product.count
         })
-<<<<<<< HEAD
-        setBasketCount(out)
-=======
+
         setBasketCount(count)
->>>>>>> f729405b1691c14ca4ad3499382651b20c0d1095
+
     }, [basket])
 
     return (
         <>
-        <div className="mobile-header">
-            <div className="mobile-header__top">
-                < NavLink className="logo" to="/">
-                    <img src={Logo} alt="" />
-                </NavLink>
-                <button onClick={() => props.openMenu(true)} className="menu-burger__header">
-                    <span></span>
-                </button>
-            </div>
-            <HeaderBottom />
-            <div className="mobile-header__bottom">
-                <div className="search">
-                    <input type="search" placeholder='Поиск' />
-                </div>
-                <div className="buttons">
-                    <NavLink to="/">
-                        <img src={Phone} alt="" />
+            <div className="mobile-header">
+                <div className="mobile-header__top">
+                    < NavLink className="logo" to="/">
+                        <img src={Logo} alt="" />
                     </NavLink>
-                    <NavLink to="/" onClick={() => props.setOpen(true)}>
-                        <img src={Person} alt="" />
-                    </NavLink>
-                    <NavLink to="/">
-                        <img src={Heart} alt="" />
-                    </NavLink>
-                    <button className='basket-btn' onClick={() => props.openBasket(true)}>
-                        <img src={Basket} alt="" />
-                        <p>{basketCount}</p>
+                    <button onClick={() => props.openMenu(true)} className="menu-burger__header">
+                        <span></span>
                     </button>
                 </div>
-            </div>
-        </div >
-        <MobileMenu openMenu={props.openMenu} isOpen={props.isMenuOpen} setOpen={props.setOpen} />
+                <HeaderBottom />
+                <div className="mobile-header__bottom">
+                    <div className="search">
+                        <input type="search" placeholder='Поиск' />
+                    </div>
+                    <div className="buttons">
+                        <NavLink to="/">
+                            <img src={Phone} alt="" />
+                        </NavLink>
+                        <NavLink to="/" onClick={() => props.setOpen(true)}>
+                            <img src={Person} alt="" />
+                        </NavLink>
+                        <NavLink to="/">
+                            <img src={Heart} alt="" />
+                        </NavLink>
+                        <button className='basket-btn' onClick={() => props.openBasket(true)}>
+                            <img src={Basket} alt="" />
+                            <p>{basketCount}</p>
+                        </button>
+                    </div>
+                </div>
+            </div >
+            <MobileMenu openMenu={props.openMenu} isOpen={props.isMenuOpen} setOpen={props.setOpen} />
         </>
     );
 }

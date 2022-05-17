@@ -1,41 +1,36 @@
 import { NavLink } from 'react-router-dom';
-// import Star from '../images/star.svg'
 import Heart from '../images/productHeart.svg'
 // import Compare from '../images/compare.svg'
 import Basket from '../images/productBasket.svg'
-import p1 from '../images/p1.png'
 import { addProductToBasket } from "../actions/product";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import AlertComponent from './AlertComponent';
 import { Rating } from '@mui/material';
+import React from 'react';
 
 
 const Product = (props) => {
     const dispatch = useDispatch()
     const isAuth = useSelector(state => state.user.isAuth);
+    const isAdmin = useSelector(state => state.user.isAdmin);
     const userId = useSelector(state => state.user.currentUser.id);
     const [alert, setAlert] = useState(false);
-    // const [ratesCount, setRatesCount] = useState(0)
-    const [middleRateValue, setMiddleRateValue] = useState(5)
+    const [success, setSuccess] = useState(false)
     const [reviewsLength, setReviewsLength] = useState('')
 
     const handleChange = (id) => {
         if (isAuth) {
             dispatch(addProductToBasket(userId, id))
+            setSuccess(true)
+            setAlert(true);
         } else {
+            setSuccess(false);
             setAlert(true);
         }
     };
 
     useEffect(() => {
-        let out = 0;
-        props.data.reviews.forEach(review => {
-            // setRatesCount(count => count + 1)
-            out += review.rate;
-        })
-        out = out / props.data.reviews.length
-        setMiddleRateValue(out)
 
         let revLength = Number(props.data.reviews.length);
 
@@ -51,12 +46,14 @@ const Product = (props) => {
     }, [props.data.reviews])
 
     return (
-        <div className="product">
-            <div className="onsale" style={props.data.onsale ? { display: 'block' } : { display: "none" }}>
-                -50%
+        <div key={props.data._id} className={props.data.inStock ? "product" : "product product-unavailable"}>
+            <div className="onsale" style={props.data.onsale && props.data.discount > 0 ? { display: 'block' } : { display: "none" }}>
+                - {props.data.discount} %
             </div>
             <div className="product__img">
-                <img src={p1} alt="" />
+                <NavLink to={"/catalog/:" + props.data._id + "/info"}>
+                    <img src={props.data.catalogImg} alt="" />
+                </NavLink>
             </div>
             <div className="product__title">
                 <NavLink to={"/catalog/:" + props.data._id + "/info"}>
@@ -73,8 +70,7 @@ const Product = (props) => {
             </div>
             <div className="product__rate">
                 <div className="stars">
-                    <Rating readOnly value={middleRateValue} />
-                    {/* {'(' + props.data.reviews.length + ')'} */}
+                    <Rating readOnly value={props.data.rate} />
                 </div>
                 <div className="reviews">
                     <NavLink to={"/catalog/:" + props.data._id + "/reviews"}>
@@ -85,7 +81,16 @@ const Product = (props) => {
             <div className="product__footer">
                 <div className="product__interaction">
                     <div className="price">
-                        {props.data.price.toLocaleString("currency")} р.
+                        <p className='price' style={props.data.discount > 0 && props.data.onsale ? {
+                            textDecorationLine: "line-through"
+                        } : { fontSize: "24px" }}>
+                            {props.data.price.toLocaleString("currency")} грн.
+                        </p>
+                        <p className="price-with-discount" style={props.data.discount > 0 && props.data.onsale ? {
+                            display: "block", color: "red", fontWeight: "400", fontSize: "24px"
+                        } : { display: "none" }}>
+                            {Math.round(props.data.price - (props.data.price * props.data.discount) / 100).toLocaleString("currency")} грн.
+                        </p>
                     </div>
                     <div className="buttons">
                         {/* <NavLink to="/compare">
@@ -96,15 +101,19 @@ const Product = (props) => {
                         </button>
                     </div>
                 </div>
-                <button className='tobasket' onClick={() => {
+                {props.data.inStock ? <button className='tobasket' onClick={() => {
                     handleChange(props.data._id)
                 }}>
                     В корзину
                     <img src={Basket} alt="" />
-                </button>
+                </button> : <p className='unavailable'>
+                    Нет в наявности
+                </p>}
+
 
             </div>
-            <AlertComponent visible={alert ? "block" : "none"} close={setAlert} />
+            {alert && <AlertComponent success={success} close={setAlert} />}
+
         </div >
     )
 }

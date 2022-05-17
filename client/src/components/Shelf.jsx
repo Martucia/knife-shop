@@ -2,32 +2,35 @@ import { NavLink } from 'react-router-dom';
 import Right from '../images/right.svg'
 import Product from './Product';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useSelector } from "react-redux";
+// import axios from 'axios';
+import React from 'react';
 
 
 
 const Shelf = () => {
-    const [products, setProducts] = useState(null);
+    // const [products, setProducts] = useState([]);
+    const products = useSelector(state => state.catalog.catalog);
+
+    // const productsOnSale = useSelector(state => {
+    //     console.log(state.catalog)
+    //     return state.catalog.map(product => product.onsale ? product : null)
+    // })
 
 
-    // if (props.onsale) {
-<<<<<<< HEAD
-        useEffect(() => {
-            axios.get(`http://localhost:5000/api/catalog/onsale`).then((response) => {
-                setProducts(response.data.products.slice(3));
-            });
-        }, []);
-=======
-    useEffect(() => {
-        axios.get(`http://localhost:5000/api/catalog/onsale`).then((response) => {
-            setProducts(response.data.products.slice(3));
-        });
-    }, []);
->>>>>>> f729405b1691c14ca4ad3499382651b20c0d1095
-    // }
+    // useEffect(() => {
+    //     axios.get(`http://localhost:5000/api/catalog/`).then((response) => {
+    //         setProducts(response.data.products);
+    //     });
+    // }, []);
+
+    // useEffect(() => {
+    //     setProducts(catalog.slice(0, 3))
+    //     console.log(344)
+    // }, [])
 
 
-    if (products) return (
+    return (
         <div className="shelf">
             <div className="shelf__header">
                 <div className="title">

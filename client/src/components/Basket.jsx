@@ -1,4 +1,3 @@
-import img from "../images/k1.png";
 import closer from "../images/closer.svg";
 import deleteProduct from "../images/delete.svg";
 import { useEffect, useState } from "react";
@@ -6,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteProductFromBasket } from '../actions/product'
 import { NavLink } from 'react-router-dom';
 import AlertComponent from "./AlertComponent";
+
 
 const Basket = (props) => {
     const products = useSelector(state => state.user.basket);
@@ -17,9 +17,6 @@ const Basket = (props) => {
     const isAuth = useSelector(state => state.user.isAuth);
 
     const [basketStyle, setBasketStyle] = useState('')
-    const basketState = useSelector(state => state.user.basket);
-
-
 
     const deleteItem = (productId) => {
         dispatch(deleteProductFromBasket(productId, userId))
@@ -44,15 +41,14 @@ const Basket = (props) => {
     useEffect(() => {
         let price = 0;
 
-        basketState.forEach(product => {
-            price += (product.price * product.count)
+        products.forEach(product => {
+            price += (product.data.price * product.count)
         })
         setBasketSumm(price)
-    }, [basketState])
+    }, [products])
 
 
-    if (isAuth) {
-        return (
+    if (isAuth) return (
             <div className="basket-bg">
                 <div className={'basket ' + basketStyle} >
                     <div className="title">
@@ -73,24 +69,24 @@ const Basket = (props) => {
                                     </div>
                                     <div className="block__inner">
                                         <div className="block__img">
-                                            <img src={img} alt="" />
+                                            <img src={product.data.catalogImg} alt="" />
                                         </div>
                                         <div className="block__text">
                                             <div className="block__title">
-                                                < NavLink to={'/catalog/:' + product._id} onClick={() => {
+                                                < NavLink to={'/catalog/:' + product.data._id} onClick={() => {
                                                     setCloseBasket(340);
                                                     setBasketStyle('');
                                                 }}>
-                                                    {product.name}
+                                                    {product.data.name}
                                                 </NavLink>
                                             </div>
                                             <div className="block__price">
-                                                {product.price.toLocaleString("currency")} грн
+                                                {product.data.price.toLocaleString("currency")} грн
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button className="delete-from-basket" onClick={() => deleteItem(product._id)}>
+                                    <button className="delete-from-basket" onClick={() => deleteItem(product.data._id)}>
                                         <img src={deleteProduct} alt="" />
                                     </button>
                                 </div>
@@ -109,13 +105,7 @@ const Basket = (props) => {
                 </div>
             </div>
         )
-    } else if (!isAuth && props.isOpen) {
-        setCloseBasket(3000); 
-
-        return (
-            <AlertComponent />
-        )
-    }
+    
 }
 
 export default Basket;

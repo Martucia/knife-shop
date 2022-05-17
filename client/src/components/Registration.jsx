@@ -14,19 +14,17 @@ function Registration(props) {
 
     const isAuth = useSelector(state => state.user.isAuth);
 
-    let yes = false;
-
     useEffect(() => {
         if (props.isActive && !isAuth) {
-            yes = true;
             document.body.classList.add("noscroll");
         } else {
             props.openReg(false)
+            document.body.classList.remove("noscroll");
         }
-    }, [props.isActive, isAuth])
+    }, [props, isAuth])
 
     return (
-        <div className='modal' style={yes ? { display: 'flex' } : { display: "none" }} onClick={() => props.openReg(false)}>
+        <div className='modal' style={{justifyContent: "center"}} onClick={() => props.openReg(false)}>
             <div className="modal__content" onClick={(e) => e.stopPropagation()}>
                 <button className="close" onClick={() => {
                     props.openReg(false)

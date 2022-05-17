@@ -1,27 +1,46 @@
 const { Router } = require('express')
 const { check, validationResult } = require('express-validator')
 const Product = require('../models/Product')
-const Basket = require('../models/Basket')
 const BasketProduct = require('../models/BasketProduct')
 const User = require('../models/User')
+// const Image = require('../models/Image')
+const Basket = require('../models/Basket')
 const Review = require('../models/Review')
 const router = Router()
 const authMiddleware = require('../middleware/auth.middleware')
 
 
+
 router.post(
     '/addproduct',
     // authMiddleware,
-    async(req, res) => {
+    async (req, res) => {
+
         try {
+            const product = req.body
 
-            const { name, size, material, manufacture, steel, handle, guardback, gilding, trademark, serie, price, description, onsale } = req.body
+            const newProduct = new Product(product)
 
-            const product = new Product({ name, size, material, manufacture, steel, handle, guardback, gilding, trademark, serie, price, description, onsale })
+            await newProduct.save()
 
-            await product.save()
+            res.status(201).json({ message: 'Продукт добавлен', product: newProduct })
 
-            res.status(201).json({ message: 'Продукт добавлен' })
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        }
+    })
+
+router.delete(
+    '/delete/:id',
+    // authMiddleware,
+    async (req, res) => {
+        try {
+            const id = req.params.id.slice(1);
+
+            await Product.findByIdAndDelete(id)
+
+            res.status(201).json({ message: 'Продукт удален' })
 
         } catch (e) {
             console.log(e)
@@ -32,27 +51,23 @@ router.post(
 router.get(
     '/',
 
-    async(req, res) => {
-
+    async (req, res) => {
         try {
-            const perPage = 1;
+            const perPage = 12;
+            const total = await Product.count();
+            pagesCount = Math.ceil(total / perPage)
             const page = parseInt(req.query.page) || 1;
 
+            let startFrom = (page - 1) * perPage;
 
-            // const products = await Product.find().populate('reviews').skip(perPage * (page - 1)).limit(perPage)
+            const sort = { inStock: -1 };
 
-            const products = await Product.find()
+            const products = await Product.find().populate('reviews')
+                .sort(sort)
+                .skip(startFrom)
+                .limit(perPage)
 
-            // const products = await Product.find(query, fields, {skip: perPage * (page - 1), limit: perPage}, function(err, results) {
-            //   console.log(results)
-            // })
-
-            // .skip(perPage * (page - 1)).limit(perPage)
-
-            // console.log(products)
-
-
-            return res.json({ products })
+            return res.json({ products, count: pagesCount })
 
         } catch (e) {
             console.log(e)
@@ -61,24 +76,43 @@ router.get(
     })
 
 router.get(
-    '/onsale',
-    // authMiddleware,
-    async(req, res) => {
+    '/search',
+
+    async (req, res) => {
         try {
 
-            const products = await Product.find({ onsale: true }).populate('reviews')
 
-            return res.json({ products })
+        } catch (e) {
+            console.log(e)
+            res.status(503).json({ message: 'Search error' })
+        }
+    })
+
+
+router.patch(
+    '/edit/:id',
+    async (req, res) => {
+        try {
+
+            const { updates } = req.body
+
+            const id = req.params.id.slice(1);
+            const options = { new: true }
+
+            const product = await Product.findByIdAndUpdate(id, updates, options)
+
+            return res.json({ product })
 
         } catch (e) {
             res.status(500).json({ message: e })
         }
-    })
+    }
+)
 
 router.get(
     '/:id',
     // authMiddleware,
-    async(req, res) => {
+    async (req, res) => {
         try {
 
             let id = req.params.id.slice(1);
@@ -96,11 +130,9 @@ router.get(
 router.patch(
     '/addtobasket/:id',
     // authMiddleware,
-    async(req, res) => {
+    async (req, res) => {
         try {
             const { id } = req.body;
-
-            console.log(id)
 
             const candidate = await Product.findOne({ _id: id });
 
@@ -110,9 +142,17 @@ router.patch(
 
             let theId = req.params.id.slice(1);
 
-            const basket = await Basket.findOne({ owner: theId })
+            const basket = await Basket.findOne({ owner: theId }).populate('products')
+                .populate({
+                    path: 'products',
+                    populate: {
+                        path: 'data'
+                    }
+                })
 
-            const candProduct = await BasketProduct.findOne({ owner: basket._id, _id: id })
+            const candProduct = await BasketProduct.findOne({ data: candidate }).populate('data')
+
+
 
             if (candProduct) {
                 candProduct.count = candProduct.count + 1
@@ -120,7 +160,7 @@ router.patch(
                 return res.status(201).json({ message: 'Продукт +1', product: candProduct })
             };
 
-            const product = new BasketProduct({ _id: candidate._id, name: candidate.name, price: candidate.price, owner: basket._id });
+            const product = new BasketProduct({ data: candidate });
 
             basket.products.push(product)
 
@@ -140,29 +180,19 @@ router.patch(
 router.delete(
     "/removeproduct",
     // authMiddleware,
-    async(req, res) => {
+    async (req, res) => {
         try {
             const { userId, productId } = req.query
 
-            // console.log(2, userId, productId)
+            const basket = await Basket.findOne({ owner: userId }).populate('products')
 
-            const basket = await Basket.findOne({ owner: userId })
+            basket.products = basket.products.filter(product => product.data._id.toString().replace(/new ObjectId\("(.*)"\)/, "$1") !== productId);
 
-            let outBasket = basket.products.filter(itemId => {
-                let out = itemId.toString().replace(/new ObjectId\("(.*)"\)/, "$1")
-
-                return out !== productId
-            })
-
-
-            basket.products = outBasket
             await basket.save()
 
-            const baskProduct = await BasketProduct.findOne({ owner: basket._id, _id: productId });
-            await baskProduct.delete()
+            await BasketProduct.findOneAndDelete({ data: productId });
 
             res.status(204).json({ id: productId })
-
 
         } catch (e) {
             res.status(404)
@@ -171,39 +201,29 @@ router.delete(
         }
     })
 
-// router.get(
-//   '/filter',
-//   //  authMiddleware,
-//   async (req, res) => {
-//     try {
-//       let filter = req.query;
-
-//       console.log(filter)
-
-//       // let id = req.params.id.slice(1);
-
-
-//       // const product = await Product.findOne({ id })
-
-//       // return res.json({ product })
-
-//     } catch (e) {
-//       res.status(500).json({ message: e })
-//     }
-//   })
 
 router.patch(
     '/addreview',
     // authMiddleware,
-    async(req, res) => {
+    async (req, res) => {
         try {
-            const { text, productId, userName, rate } = req.body;
+            const { text, productId, userId, rate } = req.body;
 
-            const review = new Review({ text, author: userName, rate, owner: productId })
+            const user = await User.findOne({ _id: userId })
 
-            const product = await Product.findOne({ _id: productId })
+            const review = new Review({ text, author: user.name, authorId: userId, rate, owner: productId })
+
+            const product = await Product.findOne({ _id: productId }).populate('reviews')
 
             product.reviews.push(review)
+
+            let allRate = 0;
+
+            product.reviews.forEach(review => {
+                allRate += review.rate;
+            })
+
+            product.rate = allRate / product.reviews.length;
 
             await product.save();
 
@@ -218,20 +238,23 @@ router.patch(
         }
     })
 
-router.delete(
+
+router.patch(
     "/removereview",
     // authMiddleware,
-    async(req, res) => {
+    async (req, res) => {
         try {
-            const { productId } = req.body;
+            const { productId, reviewId } = req.body;
 
-            const product = await Product.findOne({ _id: productId })
+            const product = await Product.findOne({ _id: productId }).populate('reviews')
 
-            product.reviews = []
+            await Review.findOneAndDelete({ _id: reviewId, owner: productId })
+
+            product.reviews = product.reviews.filter(review => review._id !== reviewId)
 
             await product.save();
 
-            return res.status(201).json({ message: 'Отзыв удален' })
+            return res.status(201).json({ message: 'Отзыв удален', review: reviewId })
 
         } catch (e) {
             res.status(404)

@@ -2,6 +2,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from 'react';
 import dropArrow from "../images/filter-drop-btn.svg"
+import React from 'react';
 
 
 const FilterDropDrown = (props) => {

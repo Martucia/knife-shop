@@ -75,6 +75,8 @@
                     line-height: 17px
                     font-family: 'Montserrat'
                     width: 100%
+                    &:active
+                        color: #000
         &__right
             display: flex
             align-items: center
@@ -102,6 +104,7 @@
             .balance
                 display: flex
                 align-items: center
+                gap: 20px
                 div
                     display: flex
                     flex-direction: column
@@ -144,7 +147,7 @@
 .basket-btn
     position: relative
     display: block
-    margin-right: 20px
+    // margin-right: 20px
     p
         position: absolute
         right: -5px
@@ -201,12 +204,14 @@
                 background: rgb(254 254 254)
                 border: 1px solid rgba(4, 4, 4, 0.5)
                 border-radius: 3px
-                color: rgb(255, 255, 255)
+                color: rgba(0, 0, 0, 0.5)
                 font-weight: 500
                 font-size: 14px
                 line-height: 17px
                 font-family: 'Montserrat'
                 width: 100%
+                &:active
+                    color: #000
         .buttons
             width: 100%
             display: flex

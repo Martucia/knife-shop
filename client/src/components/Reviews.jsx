@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 // import Input from "./Input"
-import { addReview } from "../actions/product";
+import { addReview, deleteReview } from "../actions/product";
 import { useDispatch, useSelector } from "react-redux";
 import img from "../images/avatar.png"
 import Heart from '../images/productHeart.svg'
 import ReviewText from './ReviewText';
 import { Rating } from '@mui/material';
+import React from 'react';
+import trash from '../images/trash.svg'
+
 
 const Reviews = (props) => {
-    // if (props.reviews.length > 0) console.log(props.reviews)
 
-    //if (!props.reviews.length == 0) 
     return (
         <div className="product-swiper__reviews">
             <ReviewsEmpty product={props.product} setProduct={props.setProduct} length={props.reviews.length} productId={props.productId} revOpen={props.revOpen} />
             {props.reviews.map(review => {
-                return <Review name={review.author} rate={review.rate} date={review.date} text={review.text} />
+                return <Review product={props.product} setProduct={props.setProduct} name={review.author} rate={review.rate} productId={review.owner} date={review.date} text={review.text} reviewId={review._id} />
             })}
         </div>
     )
@@ -28,6 +29,8 @@ const ReviewsEmpty = (props) => {
 
     const dispatch = useDispatch()
     const userName = useSelector(state => state.user.currentUser.name);
+    const userId = useSelector(state => state.user.currentUser.id);
+
 
     useEffect(() => {
         if (props.length > 0) setOpenInput(true)
@@ -35,15 +38,16 @@ const ReviewsEmpty = (props) => {
 
     const sendReview = () => {
         if (userName) {
-            // if (inputVal) {
+
             if (rate) {
-                dispatch(addReview(inputVal, props.productId, userName, rate))
+                dispatch(addReview(inputVal, props.productId, userId, rate))
                 let rev = {
                     text: inputVal,
                     author: userName,
+                    authorId: userId,
                     rate: rate,
+                    date: 'Сейчас',
                     owner: props.productId,
-                    date: 'Сейчас'
                 }
 
                 let newReviews = props.product.reviews.push(rev)
@@ -53,9 +57,7 @@ const ReviewsEmpty = (props) => {
             } else {
                 alert("Поставте оценку продукту")
             }
-            // } else {
-            //     alert("Введите текст")
-            // }
+
         } else {
             alert("Войдите в аккаунт")
         }
@@ -103,6 +105,34 @@ const ReviewsEmpty = (props) => {
 }
 
 const Review = (props) => {
+    const userName = useSelector(state => state.user.currentUser.name);
+    const isAdmin = useSelector(state => state.user.isAdmin);
+
+    const dispatch = useDispatch()
+
+    const deleteRev = () => {
+        dispatch(deleteReview(props.productId, props.reviewId))
+
+        // let newReviews = 
+
+        // props.setProduct({...props.product, props.product.reviews = props.product.reviews.filter(review => review._id !== props.reviewId)})
+
+        // props.setProduct(props.product.reviews.filter(review => review._id !== props.reviewId))
+
+        // let out = props.product.reviews.filter(review => {
+        //     console.log(review._id, props.reviewId)
+        //     if(review._id !== props.reviewId) return review
+        // })
+
+        // let out2 = props.product;
+        // out2.reviews = out;
+        // console.log(out)
+        // console.log(props.product)
+        // console.log(out2)
+
+        // props.setProduct(out2)
+    }
+
 
 
     return (
@@ -115,9 +145,15 @@ const Review = (props) => {
                     <div className="title">
                         {props.name}
                     </div>
-                    <div className="date">
-                        {props.date.split('T')[0]}
+                    <div className="review__inner__header__right">
+                        <div className="date">
+                            {props.date.split('T')[0]}
+                        </div>
+                        <button onClick={deleteRev} className="delete" style={userName || isAdmin ? { display: 'flex' } : { display: 'none' }}>
+                            <img src={trash} alt="" />
+                        </button>
                     </div>
+
                 </div>
                 <Rating readOnly value={props.rate} />
 
@@ -127,9 +163,12 @@ const Review = (props) => {
                     <button className='answer'>
                         Ответить
                     </button>
+
                     <button className="like">
                         <img src={Heart} alt="" />
                     </button>
+
+
                 </div>
             </div>
         </div>

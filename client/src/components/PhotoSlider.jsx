@@ -1,16 +1,18 @@
-import { useState } from "react"
-import i1 from "../images/i1.png"
-import i2 from "../images/i2.png"
-import i3 from "../images/i3.png"
-import i4 from "../images/i4.png"
-import i5 from "../images/i5.png"
+import { useEffect, useState } from "react"
+import React from 'react';
 
-const PhotoSlider = () => {
-    const [mainPhoto, setMainPhoto] = useState(i1)
+const PhotoSlider = (props) => {
+    const [mainPhoto, setMainPhoto] = useState(null)
 
     const changePhoto = (e) => {
         setMainPhoto(e.target.currentSrc)
     }
+
+
+    useEffect(() => {
+        setMainPhoto(props.images[0].url)
+    }, [props.images])
+
 
     return (
         <div className="swiper">
@@ -18,22 +20,14 @@ const PhotoSlider = () => {
                 <img src={mainPhoto} alt="" />
             </div>
             <div className="photo-row">
-                <div className="photo" onClick={changePhoto}>
-                    <img src={i2} alt="" />
-                </div>
-                <div className="photo" onClick={changePhoto}>
-                    <img src={i3} alt="" />
 
-                </div>
-                <div className="photo" onClick={changePhoto}>
-                    <img src={i4} alt="" />
-
-                </div>
-                <div className="photo" onClick={changePhoto}>
-                    <img src={i5} alt="" />
-
-                </div>
-
+                {props.images.map(image => {
+                    // if (!image.isMain) 
+                    return (
+                        <div className="photo" onClick={changePhoto}>
+                            <img src={image.url} alt="" />
+                        </div>)
+                })}
 
             </div>
         </div>
